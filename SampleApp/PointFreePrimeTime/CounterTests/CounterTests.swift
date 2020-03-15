@@ -39,7 +39,7 @@ class CounterTests: XCTestCase {
     vc.view.frame = UIScreen.main.bounds
 
     diffTool = "ksdiff"
-//    record=true
+    // record=true
     assertSnapshot(matching: vc, as: .windowedImage)
 
     store.send(.counter(.incrTapped))
