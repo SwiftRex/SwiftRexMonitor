@@ -1,64 +1,78 @@
 import XCTest
 @testable import FavoritePrimes
+@testable import SwiftRex
 
 class FavoritePrimesTests: XCTestCase {
-  override class func setUp() {
-    super.setUp()
-    Current = .mock
-  }
+    var state: [Int] = []
+    var middlewareActions: [FavoritePrimesAction] = []
+    var middleware = FavoritePrimesMiddleware()
+    var afterReducer: AfterReducer = .doNothing()
 
-  func testDeleteFavoritePrimes() {
-    var state = [2, 3, 5, 7]
-    let effects = favoritePrimesReducer(state: &state, action: .deleteFavoritePrimes([2]))
-
-    XCTAssertEqual(state, [2, 3, 7])
-    XCTAssert(effects.isEmpty)
-  }
-
-  func testSaveButtonTapped() {
-    var didSave = false
-    Current.fileClient.save = { _, data in
-      .fireAndForget {
-        didSave = true
-      }
+    override class func setUp() {
+        super.setUp()
+        Current = .mock
     }
 
-    var state = [2, 3, 5, 7]
-    let effects = favoritePrimesReducer(state: &state, action: .saveButtonTapped)
+    override func setUp() {
+        super.setUp()
+        middlewareActions = []
+        state = [2, 3, 5, 7]
+        afterReducer = .doNothing()
+        middleware = FavoritePrimesMiddleware()
+        let actionHandler = AnyActionHandler<FavoritePrimesAction>.init { action, _ in
+            self.middlewareActions.append(action)
+        }
+        middleware.receiveContext(getState: { self.state }, output: actionHandler)
+    }
 
-    XCTAssertEqual(state, [2, 3, 5, 7])
-    XCTAssertEqual(effects.count, 1)
+    func testDeleteFavoritePrimes() {
+        let action = FavoritePrimesAction.deleteFavoritePrimes([2])
 
-    effects[0].sink { _ in XCTFail() }
+        handle(action: action)
 
-    XCTAssert(didSave)
-  }
+        XCTAssertEqual(state, [2, 3, 7])
+        XCTAssert(middlewareActions.isEmpty)
+    }
 
-  func testLoadFavoritePrimesFlow() {
-    Current.fileClient.load = { _ in .sync { try! JSONEncoder().encode([2, 31]) } }
+    func testSaveButtonTapped() {
+        let action = FavoritePrimesAction.saveButtonTapped
+        var didSave = false
+        Current.fileClient.save = { _, data in
+            .fireAndForget {
+                didSave = true
+            }
+        }
 
-    var state = [2, 3, 5, 7]
-    var effects = favoritePrimesReducer(state: &state, action: .loadButtonTapped)
+        handle(action: action)
 
-    XCTAssertEqual(state, [2, 3, 5, 7])
-    XCTAssertEqual(effects.count, 1)
+        XCTAssertEqual(state, [2, 3, 5, 7])
+        XCTAssertEqual(middlewareActions.count, 0)
 
-    var nextAction: FavoritePrimesAction!
-    let receivedCompletion = self.expectation(description: "receivedCompletion")
-    effects[0].sink(
-      receiveCompletion: { _ in
-        receivedCompletion.fulfill()
-    },
-      receiveValue: { action in
-        XCTAssertEqual(action, .loadedFavoritePrimes([2, 31]))
-        nextAction = action
-    })
-    self.wait(for: [receivedCompletion], timeout: 0)
+        XCTAssert(didSave)
+    }
 
-    effects = favoritePrimesReducer(state: &state, action: nextAction)
+    func testLoadFavoritePrimesFlow() {
+        let action = FavoritePrimesAction.loadButtonTapped
+        Current.fileClient.load = { _ in .sync { try! JSONEncoder().encode([2, 31]) } }
 
-    XCTAssertEqual(state, [2, 31])
-    XCTAssert(effects.isEmpty)
-  }
+        handle(action: action)
 
+        XCTAssertEqual(state, [2, 3, 5, 7])
+
+        XCTAssertEqual(middlewareActions.count, 1)
+        let nextAction = middlewareActions.removeFirst()
+        XCTAssertEqual(nextAction, .loadedFavoritePrimes([2, 31]))
+
+        handle(action: nextAction)
+
+        XCTAssertEqual(state, [2, 31])
+        XCTAssert(middlewareActions.isEmpty)
+    }
+
+    func handle(action: FavoritePrimesAction) {
+        afterReducer = .doNothing()
+        middleware.handle(action: action, from: .here(), afterReducer: &afterReducer)
+        state = favoritePrimesReducer.reduce(action, state)
+        afterReducer.reducerIsDone()
+    }
 }
