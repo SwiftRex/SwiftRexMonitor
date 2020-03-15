@@ -18,8 +18,8 @@ extension AppAction {
 
     public var monitor: MonitorAction? {
         get {
-            guard case let .monitor(value) = self else { return nil }
-            return value
+            guard case let .monitor(associatedValue0) = self else { return nil }
+            return (associatedValue0)
         }
         set {
             guard case .monitor = self, let newValue = newValue else { return }
@@ -33,8 +33,8 @@ extension AppAction {
 
     public var multipeer: MultipeerAction? {
         get {
-            guard case let .multipeer(value) = self else { return nil }
-            return value
+            guard case let .multipeer(associatedValue0) = self else { return nil }
+            return (associatedValue0)
         }
         set {
             guard case .multipeer = self, let newValue = newValue else { return }
@@ -72,8 +72,8 @@ extension MonitorAction {
 
     public var peerListHasChanged: [Peer]? {
         get {
-            guard case let .peerListHasChanged(value) = self else { return nil }
-            return value
+            guard case let .peerListHasChanged(associatedValue0) = self else { return nil }
+            return (associatedValue0)
         }
         set {
             guard case .peerListHasChanged = self, let newValue = newValue else { return }
@@ -87,8 +87,8 @@ extension MonitorAction {
 
     public var evaluateData: (Data, from: Peer)? {
         get {
-            guard case let .evaluateData(value) = self else { return nil }
-            return value
+            guard case let .evaluateData(associatedValue0, from) = self else { return nil }
+            return (associatedValue0, from)
         }
         set {
             guard case .evaluateData = self, let newValue = newValue else { return }
@@ -102,8 +102,8 @@ extension MonitorAction {
 
     public var gotAction: (ActionMessage, peer: Peer)? {
         get {
-            guard case let .gotAction(value) = self else { return nil }
-            return value
+            guard case let .gotAction(associatedValue0, peer) = self else { return nil }
+            return (associatedValue0, peer)
         }
         set {
             guard case .gotAction = self, let newValue = newValue else { return }
@@ -117,8 +117,8 @@ extension MonitorAction {
 
     public var gotGreetings: (PeerMetadata, peer: Peer)? {
         get {
-            guard case let .gotGreetings(value) = self else { return nil }
-            return value
+            guard case let .gotGreetings(associatedValue0, peer) = self else { return nil }
+            return (associatedValue0, peer)
         }
         set {
             guard case .gotGreetings = self, let newValue = newValue else { return }
