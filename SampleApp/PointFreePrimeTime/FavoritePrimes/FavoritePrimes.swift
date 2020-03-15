@@ -1,6 +1,7 @@
 import Combine
 import SwiftRex
 import SwiftUI
+import Utils
 
 public enum FavoritePrimesAction: Equatable {
     case deleteFavoritePrimes(IndexSet)
@@ -67,29 +68,6 @@ public let favoritePrimesReducer = Reducer<FavoritePrimesAction, [Int]> { action
     case .loadButtonTapped: return state
     }
 }
-
-extension Publisher where Output == Never, Failure == Never {
-    func fireAndForget<A>() -> AnyPublisher<A, Never> {
-        return self.map(absurd).eraseToAnyPublisher()
-    }
-}
-
-extension Publisher where Failure == Never {
-    public static func fireAndForget(work: @escaping () -> Void) -> AnyPublisher<Output, Never> {
-        return Deferred { () -> Empty<Output, Never> in
-            work()
-            return Empty(completeImmediately: true)
-        }.eraseToAnyPublisher()
-    }
-
-    public static func sync(work: @escaping () -> Output) -> AnyPublisher<Output, Never> {
-        return Deferred {
-            Just(work())
-        }.eraseToAnyPublisher()
-    }
-}
-
-func absurd<A>(_ never: Never) -> A {}
 
 struct FileClient {
     var load: (String) -> AnyPublisher<Data?, Never>

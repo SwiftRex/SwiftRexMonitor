@@ -3,6 +3,7 @@ import CombineRex
 import PrimeModal
 import SwiftRex
 import SwiftUI
+import Utils
 
 public enum CounterAction: Equatable {
     case decrTapped
@@ -99,27 +100,11 @@ extension CounterEnvironment {
 
 var Current = CounterEnvironment.live
 
-extension Publisher where Failure == Never {
-    public static func sync(work: @escaping () -> Output) -> AnyPublisher<Output, Never> {
-        return Deferred {
-            Just(work())
-        }.eraseToAnyPublisher()
-    }
-}
-
-func absurd<A>(_ never: Never) -> A {}
-
 extension CounterEnvironment {
     static let mock = CounterEnvironment(nthPrime: { _ in .sync { 17 }})
 }
 
 import CasePaths
-
-func setter<Root, Value>(_ keyPath: WritableKeyPath<Root, Value>) -> (inout Root, Value) -> Void {
-    return { root, value in
-        root[keyPath: keyPath] = value
-    }
-}
 
 public let counterViewReducer: Reducer<CounterViewAction, CounterViewState> =
     counterReducer.lift(

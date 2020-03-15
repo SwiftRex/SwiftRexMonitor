@@ -1,14 +1,6 @@
 import UIKit
 @testable import Counter
-
-import Combine
-extension Publisher where Failure == Never {
-    public static func sync(work: @escaping () -> Output) -> AnyPublisher<Output, Never> {
-        return Deferred {
-            Just(work())
-        }.eraseToAnyPublisher()
-    }
-}
+import Utils
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -4,6 +4,7 @@ import Counter
 import FavoritePrimes
 import SwiftRex
 import SwiftUI
+import Utils
 
 struct AppState: Equatable {
     var count = 0
@@ -58,12 +59,6 @@ extension AppState {
 }
 
 import CasePaths
-
-func setter<Root, Value>(_ keyPath: WritableKeyPath<Root, Value>) -> (inout Root, Value) -> Void {
-    return { root, value in
-        root[keyPath: keyPath] = value
-    }
-}
 
 let appReducer: Reducer<AppAction, AppState> =
     counterViewReducer.lift(
