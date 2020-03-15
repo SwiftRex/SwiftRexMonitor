@@ -8,7 +8,15 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
     let session = world.multipeerSession
 
     return
-        MultipeerBrowserMiddleware
+        LoggerMiddleware
+            .init()
+            .lift(
+                inputActionMap: identity,
+                outputActionMap: absurd,
+                stateMap: identity
+            )
+
+        <> MultipeerBrowserMiddleware
             .init(browser: { world.browserPublisher(peer) }, session: session)
             .lift(
                 inputActionMap: \AppAction.multipeer?.browser,
