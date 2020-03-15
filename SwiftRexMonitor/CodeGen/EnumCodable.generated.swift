@@ -10,10 +10,10 @@ extension AppAction: Encodable {
         case associatedValues
 
         enum MonitorKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum MultipeerKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
     }
 
@@ -23,14 +23,14 @@ extension AppAction: Encodable {
         switch self {
         case .start:
             try container.encode("start", forKey: .type)
-        case let .monitor(associatedValues):
+        case let .monitor(associatedValue0):
             try container.encode("monitor", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.MonitorKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .multipeer(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .multipeer(associatedValue0):
             try container.encode("multipeer", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.MultipeerKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
         }
     }
 }
@@ -40,10 +40,10 @@ extension MessageType: Codable {
         case associatedValues
 
         enum IntroductionKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum ActionKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
     }
 
@@ -52,11 +52,11 @@ extension MessageType: Codable {
         switch try container.decode(String.self, forKey: .type) {
         case "introduction":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.IntroductionKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(PeerMetadata.self, forKey: .associatedValues0)
+            let associatedValues0 = try subContainer.decode(PeerMetadata.self, forKey: .associatedValue0)
             self = .introduction(associatedValues0)
         case "action":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.ActionKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(ActionMessage.self, forKey: .associatedValues0)
+            let associatedValues0 = try subContainer.decode(ActionMessage.self, forKey: .associatedValue0)
             self = .action(associatedValues0)
         default:
             throw DecodingError.keyNotFound(CodingKeys.type, .init(codingPath: container.codingPath, debugDescription: "Unknown key"))
@@ -66,14 +66,14 @@ extension MessageType: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case let .introduction(associatedValues):
+        case let .introduction(associatedValue0):
             try container.encode("introduction", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.IntroductionKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .action(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .action(associatedValue0):
             try container.encode("action", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.ActionKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
         }
     }
 }
@@ -83,19 +83,19 @@ extension MonitorAction: Codable {
         case associatedValues
 
         enum PeerListHasChangedKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum EvaluateDataKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "from"
+            case associatedValue0
+            case from
         }
         enum GotActionKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "peer"
+            case associatedValue0
+            case peer
         }
         enum GotGreetingsKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "peer"
+            case associatedValue0
+            case peer
         }
     }
 
@@ -108,22 +108,22 @@ extension MonitorAction: Codable {
             self = .peerListNeedsRefresh
         case "peerListHasChanged":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.PeerListHasChangedKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode([Peer].self, forKey: .associatedValues0)
+            let associatedValues0 = try subContainer.decode([Peer].self, forKey: .associatedValue0)
             self = .peerListHasChanged(associatedValues0)
         case "evaluateData":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.EvaluateDataKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(Data.self, forKey: .associatedValues0)
-            let associatedValues1 = try subContainer.decode(Peer.self, forKey: .associatedValues1)
+            let associatedValues0 = try subContainer.decode(Data.self, forKey: .associatedValue0)
+            let associatedValues1 = try subContainer.decode(Peer.self, forKey: .from)
             self = .evaluateData(associatedValues0, from: associatedValues1)
         case "gotAction":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.GotActionKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(ActionMessage.self, forKey: .associatedValues0)
-            let associatedValues1 = try subContainer.decode(Peer.self, forKey: .associatedValues1)
+            let associatedValues0 = try subContainer.decode(ActionMessage.self, forKey: .associatedValue0)
+            let associatedValues1 = try subContainer.decode(Peer.self, forKey: .peer)
             self = .gotAction(associatedValues0, peer: associatedValues1)
         case "gotGreetings":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.GotGreetingsKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(PeerMetadata.self, forKey: .associatedValues0)
-            let associatedValues1 = try subContainer.decode(Peer.self, forKey: .associatedValues1)
+            let associatedValues0 = try subContainer.decode(PeerMetadata.self, forKey: .associatedValue0)
+            let associatedValues1 = try subContainer.decode(Peer.self, forKey: .peer)
             self = .gotGreetings(associatedValues0, peer: associatedValues1)
         default:
             throw DecodingError.keyNotFound(CodingKeys.type, .init(codingPath: container.codingPath, debugDescription: "Unknown key"))
@@ -137,25 +137,25 @@ extension MonitorAction: Codable {
             try container.encode("start", forKey: .type)
         case .peerListNeedsRefresh:
             try container.encode("peerListNeedsRefresh", forKey: .type)
-        case let .peerListHasChanged(associatedValues):
+        case let .peerListHasChanged(associatedValue0):
             try container.encode("peerListHasChanged", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.PeerListHasChangedKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .evaluateData(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .evaluateData(associatedValue0, from):
             try container.encode("evaluateData", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.EvaluateDataKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.from, forKey: .associatedValues1)
-        case let .gotAction(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(from, forKey: .from)
+        case let .gotAction(associatedValue0, peer):
             try container.encode("gotAction", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.GotActionKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.peer, forKey: .associatedValues1)
-        case let .gotGreetings(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(peer, forKey: .peer)
+        case let .gotGreetings(associatedValue0, peer):
             try container.encode("gotGreetings", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.GotGreetingsKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.peer, forKey: .associatedValues1)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(peer, forKey: .peer)
         }
     }
 }
@@ -165,15 +165,15 @@ extension PayloadTree: Codable {
         case associatedValues
 
         enum UnkeyedKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum KeyedKeys: String, CodingKey {
-            case associatedValues0 = "key"
-            case associatedValues1 = "value"
+            case key
+            case value
         }
         enum ArrayKeys: String, CodingKey {
-            case associatedValues0 = "key"
-            case associatedValues1 = "values"
+            case key
+            case values
         }
     }
 
@@ -182,17 +182,17 @@ extension PayloadTree: Codable {
         switch try container.decode(String.self, forKey: .type) {
         case "unkeyed":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.UnkeyedKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(String.self, forKey: .associatedValues0)
+            let associatedValues0 = try subContainer.decode(String.self, forKey: .associatedValue0)
             self = .unkeyed(associatedValues0)
         case "keyed":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.KeyedKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(String.self, forKey: .associatedValues0)
-            let associatedValues1 = try subContainer.decode(String.self, forKey: .associatedValues1)
+            let associatedValues0 = try subContainer.decode(String.self, forKey: .key)
+            let associatedValues1 = try subContainer.decode(String.self, forKey: .value)
             self = .keyed(key: associatedValues0, value: associatedValues1)
         case "array":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.ArrayKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(String.self, forKey: .associatedValues0)
-            let associatedValues1 = try subContainer.decode([PayloadTree].self, forKey: .associatedValues1)
+            let associatedValues0 = try subContainer.decode(String.self, forKey: .key)
+            let associatedValues1 = try subContainer.decode([PayloadTree].self, forKey: .values)
             self = .array(key: associatedValues0, values: associatedValues1)
         default:
             throw DecodingError.keyNotFound(CodingKeys.type, .init(codingPath: container.codingPath, debugDescription: "Unknown key"))
@@ -202,20 +202,20 @@ extension PayloadTree: Codable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case let .unkeyed(associatedValues):
+        case let .unkeyed(associatedValue0):
             try container.encode("unkeyed", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.UnkeyedKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .keyed(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .keyed(key, value):
             try container.encode("keyed", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.KeyedKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.key, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.value, forKey: .associatedValues1)
-        case let .array(associatedValues):
+            try subContainer.encode(key, forKey: .key)
+            try subContainer.encode(value, forKey: .value)
+        case let .array(key, values):
             try container.encode("array", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.ArrayKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.key, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.values, forKey: .associatedValues1)
+            try subContainer.encode(key, forKey: .key)
+            try subContainer.encode(values, forKey: .values)
         }
     }
 }

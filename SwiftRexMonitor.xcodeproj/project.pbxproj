@@ -6,6 +6,20 @@
 	objectVersion = 52;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		D69218D1241DD50500A888D4 /* Sourcery */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = D69218D2241DD50500A888D4 /* Build configuration list for PBXAggregateTarget "Sourcery" */;
+			buildPhases = (
+				D69218D5241DD51000A888D4 /* Sourcery */,
+			);
+			dependencies = (
+			);
+			name = Sourcery;
+			productName = Sourcery;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		D630822F241DA24F0025C33C /* MultipeerRedux in Frameworks */ = {isa = PBXBuildFile; productRef = D630822E241DA24F0025C33C /* MultipeerRedux */; };
 		D64C382F241D6705008D470F /* TypeErase.generated.abstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C382D241D6704008D470F /* TypeErase.generated.abstract.swift */; };
@@ -241,7 +255,6 @@
 			buildConfigurationList = D69ED04223EB8603002C1FDB /* Build configuration list for PBXNativeTarget "SwiftRexMonitor" */;
 			buildPhases = (
 				D64C3829241D61EF008D470F /* SwiftLint */,
-				D64C382A241D6692008D470F /* Sourcery */,
 				D69ED02B23EB8602002C1FDB /* Sources */,
 				D69ED02C23EB8602002C1FDB /* Frameworks */,
 				D69ED02D23EB8602002C1FDB /* Resources */,
@@ -270,6 +283,9 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = DeveloperCity;
 				TargetAttributes = {
+					D69218D1241DD50500A888D4 = {
+						CreatedOnToolsVersion = 11.4;
+					};
 					D69ED02E23EB8602002C1FDB = {
 						CreatedOnToolsVersion = 11.3;
 					};
@@ -292,6 +308,7 @@
 			projectRoot = "";
 			targets = (
 				D69ED02E23EB8602002C1FDB /* SwiftRexMonitor */,
+				D69218D1241DD50500A888D4 /* Sourcery */,
 			);
 		};
 /* End PBXProject section */
@@ -328,7 +345,7 @@
 			shellPath = /bin/sh;
 			shellScript = "Tools/swiftlint lint --config ${PROJECT_DIR}/.swiftlint.yml\n";
 		};
-		D64C382A241D6692008D470F /* Sourcery */ = {
+		D69218D5241DD51000A888D4 /* Sourcery */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -397,6 +414,24 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D69218D3241DD50500A888D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7BK8NL3DYL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D69218D4241DD50500A888D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7BK8NL3DYL;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		D69ED04023EB8603002C1FDB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -561,6 +596,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D69218D2241DD50500A888D4 /* Build configuration list for PBXAggregateTarget "Sourcery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D69218D3241DD50500A888D4 /* Debug */,
+				D69218D4241DD50500A888D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D69ED02A23EB8602002C1FDB /* Build configuration list for PBXProject "SwiftRexMonitor" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

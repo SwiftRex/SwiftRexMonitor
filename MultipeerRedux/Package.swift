@@ -12,10 +12,11 @@ let package = Package(
         .library(name: "MultipeerRedux", targets: ["MultipeerRedux"])
     ],
     dependencies: [
-        .package(name: "MultipeerCombine", path: "../MultipeerCombine")
+        .package(name: "MultipeerCombine", path: "../MultipeerCombine"),
+        .package(name: "CombineRex", url: "https://github.com/SwiftRex/SwiftRex.git", from: "0.7.0")
     ],
     targets: [
-        .target(name: "MultipeerRedux", dependencies: ["MultipeerCombine"]),
+        .target(name: "MultipeerRedux", dependencies: ["MultipeerCombine", "CombineRex"]),
         .testTarget(name: "MultipeerReduxTests", dependencies: ["MultipeerRedux"])
     ]
 )

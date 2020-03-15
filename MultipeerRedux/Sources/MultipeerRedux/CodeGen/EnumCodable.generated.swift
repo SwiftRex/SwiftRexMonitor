@@ -9,16 +9,16 @@ extension MultipeerAction: Encodable {
         case associatedValues
 
         enum AdvertiserKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum BrowserKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum ConnectivityKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum MessagingKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
     }
 
@@ -26,22 +26,22 @@ extension MultipeerAction: Encodable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
-        case let .advertiser(associatedValues):
+        case let .advertiser(associatedValue0):
             try container.encode("advertiser", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.AdvertiserKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .browser(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .browser(associatedValue0):
             try container.encode("browser", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.BrowserKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .connectivity(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .connectivity(associatedValue0):
             try container.encode("connectivity", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.ConnectivityKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .messaging(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .messaging(associatedValue0):
             try container.encode("messaging", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.MessagingKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
         }
     }
 }
@@ -51,19 +51,19 @@ extension MultipeerAdvertiserAction: Encodable {
         case associatedValues
 
         enum StoppedAdvertisingDueToErrorKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum InvitedKeys: String, CodingKey {
-            case associatedValues0 = "by"
-            case associatedValues1 = "context"
+            case by
+            case context
         }
         enum AcceptedInvitationKeys: String, CodingKey {
-            case associatedValues0 = "from"
-            case associatedValues1 = "context"
+            case from
+            case context
         }
         enum DeclinedInvitationKeys: String, CodingKey {
-            case associatedValues0 = "from"
-            case associatedValues1 = "context"
+            case from
+            case context
         }
     }
 
@@ -79,25 +79,25 @@ extension MultipeerAdvertiserAction: Encodable {
             try container.encode("stopAdvertising", forKey: .type)
         case .stoppedAdvertising:
             try container.encode("stoppedAdvertising", forKey: .type)
-        case let .stoppedAdvertisingDueToError(associatedValues):
+        case let .stoppedAdvertisingDueToError(associatedValue0):
             try container.encode("stoppedAdvertisingDueToError", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.StoppedAdvertisingDueToErrorKeys.self, forKey: .associatedValues)
-            try subContainer.encode(encodeError(associatedValues), forKey: .associatedValues0)
-        case let .invited(associatedValues):
+            try subContainer.encode(encodeError(associatedValue0), forKey: .associatedValue0)
+        case let .invited(by, context):
             try container.encode("invited", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.InvitedKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.by, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.context, forKey: .associatedValues1)
-        case let .acceptedInvitation(associatedValues):
+            try subContainer.encode(by, forKey: .by)
+            try subContainer.encode(context, forKey: .context)
+        case let .acceptedInvitation(from, context):
             try container.encode("acceptedInvitation", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.AcceptedInvitationKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.from, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.context, forKey: .associatedValues1)
-        case let .declinedInvitation(associatedValues):
+            try subContainer.encode(from, forKey: .from)
+            try subContainer.encode(context, forKey: .context)
+        case let .declinedInvitation(from, context):
             try container.encode("declinedInvitation", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.DeclinedInvitationKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.from, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.context, forKey: .associatedValues1)
+            try subContainer.encode(from, forKey: .from)
+            try subContainer.encode(context, forKey: .context)
         }
     }
 }
@@ -107,7 +107,7 @@ extension MultipeerAdvertiserState: Encodable {
         case associatedValues
 
         enum ErrorKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
     }
 
@@ -119,10 +119,10 @@ extension MultipeerAdvertiserState: Encodable {
             try container.encode("advertising", forKey: .type)
         case .stopped:
             try container.encode("stopped", forKey: .type)
-        case let .error(associatedValues):
+        case let .error(associatedValue0):
             try container.encode("error", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.ErrorKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
         }
     }
 }
@@ -132,29 +132,29 @@ extension MultipeerBrowserAction: Encodable {
         case associatedValues
 
         enum StoppedBrowsingDueToErrorKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum FoundPeerKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "info"
-            case associatedValues2 = "browser"
+            case associatedValue0
+            case info
+            case browser
         }
         enum LostPeerKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum ManuallyInviteKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "browser"
+            case associatedValue0
+            case browser
         }
         enum DidSendInvitationKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum RemoteAcceptedInvitationKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum RemoteDeclinedInvitationKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "error"
+            case associatedValue0
+            case error
         }
     }
 
@@ -170,38 +170,38 @@ extension MultipeerBrowserAction: Encodable {
             try container.encode("startedBrowsing", forKey: .type)
         case .stoppedBrowsing:
             try container.encode("stoppedBrowsing", forKey: .type)
-        case let .stoppedBrowsingDueToError(associatedValues):
+        case let .stoppedBrowsingDueToError(associatedValue0):
             try container.encode("stoppedBrowsingDueToError", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.StoppedBrowsingDueToErrorKeys.self, forKey: .associatedValues)
-            try subContainer.encode(encodeError(associatedValues), forKey: .associatedValues0)
-        case let .foundPeer(associatedValues):
+            try subContainer.encode(encodeError(associatedValue0), forKey: .associatedValue0)
+        case let .foundPeer(associatedValue0, info, browser):
             try container.encode("foundPeer", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.FoundPeerKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.info, forKey: .associatedValues1)
-            try subContainer.encode(encodeBrowser(associatedValues.browser), forKey: .associatedValues2)
-        case let .lostPeer(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(info, forKey: .info)
+            try subContainer.encode(encodeBrowser(browser), forKey: .browser)
+        case let .lostPeer(associatedValue0):
             try container.encode("lostPeer", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.LostPeerKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .manuallyInvite(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .manuallyInvite(associatedValue0, browser):
             try container.encode("manuallyInvite", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.ManuallyInviteKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(encodeBrowser(associatedValues.browser), forKey: .associatedValues1)
-        case let .didSendInvitation(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(encodeBrowser(browser), forKey: .browser)
+        case let .didSendInvitation(associatedValue0):
             try container.encode("didSendInvitation", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.DidSendInvitationKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .remoteAcceptedInvitation(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .remoteAcceptedInvitation(associatedValue0):
             try container.encode("remoteAcceptedInvitation", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.RemoteAcceptedInvitationKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .remoteDeclinedInvitation(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .remoteDeclinedInvitation(associatedValue0, error):
             try container.encode("remoteDeclinedInvitation", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.RemoteDeclinedInvitationKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(encodeError(associatedValues.error), forKey: .associatedValues1)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(encodeError(error), forKey: .error)
         }
     }
 }
@@ -211,13 +211,13 @@ extension MultipeerSessionConnectivityAction: Codable {
         case associatedValues
 
         enum PeerConnectedKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum PeerDisconnectedKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum PeerIsConnectingKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
     }
 
@@ -230,15 +230,15 @@ extension MultipeerSessionConnectivityAction: Codable {
             self = .stoppedMonitoring
         case "peerConnected":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.PeerConnectedKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(Peer.self, forKey: .associatedValues0)
+            let associatedValues0 = try subContainer.decode(Peer.self, forKey: .associatedValue0)
             self = .peerConnected(associatedValues0)
         case "peerDisconnected":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.PeerDisconnectedKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(Peer.self, forKey: .associatedValues0)
+            let associatedValues0 = try subContainer.decode(Peer.self, forKey: .associatedValue0)
             self = .peerDisconnected(associatedValues0)
         case "peerIsConnecting":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.PeerIsConnectingKeys.self, forKey: .associatedValues)
-            let associatedValues0 = try subContainer.decode(Peer.self, forKey: .associatedValues0)
+            let associatedValues0 = try subContainer.decode(Peer.self, forKey: .associatedValue0)
             self = .peerIsConnecting(associatedValues0)
         default:
             throw DecodingError.keyNotFound(CodingKeys.type, .init(codingPath: container.codingPath, debugDescription: "Unknown key"))
@@ -252,18 +252,18 @@ extension MultipeerSessionConnectivityAction: Codable {
             try container.encode("startMonitoring", forKey: .type)
         case .stoppedMonitoring:
             try container.encode("stoppedMonitoring", forKey: .type)
-        case let .peerConnected(associatedValues):
+        case let .peerConnected(associatedValue0):
             try container.encode("peerConnected", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.PeerConnectedKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .peerDisconnected(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .peerDisconnected(associatedValue0):
             try container.encode("peerDisconnected", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.PeerDisconnectedKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .peerIsConnecting(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .peerIsConnecting(associatedValue0):
             try container.encode("peerIsConnecting", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.PeerIsConnectingKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
         }
     }
 }
@@ -273,20 +273,20 @@ extension MultipeerSessionMessagingAction: Encodable {
         case associatedValues
 
         enum GotDataKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "from"
+            case associatedValue0
+            case from
         }
         enum SendDataKeys: String, CodingKey {
-            case associatedValues0
+            case associatedValue0
         }
         enum SendDataToPeerKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "to"
+            case associatedValue0
+            case to
         }
         enum SendDataResultKeys: String, CodingKey {
-            case associatedValues0
-            case associatedValues1 = "to"
-            case associatedValues2 = "result"
+            case associatedValue0
+            case to
+            case result
         }
     }
 
@@ -298,26 +298,26 @@ extension MultipeerSessionMessagingAction: Encodable {
             try container.encode("startMonitoring", forKey: .type)
         case .stoppedMonitoring:
             try container.encode("stoppedMonitoring", forKey: .type)
-        case let .gotData(associatedValues):
+        case let .gotData(associatedValue0, from):
             try container.encode("gotData", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.GotDataKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.from, forKey: .associatedValues1)
-        case let .sendData(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(from, forKey: .from)
+        case let .sendData(associatedValue0):
             try container.encode("sendData", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.SendDataKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues, forKey: .associatedValues0)
-        case let .sendDataToPeer(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+        case let .sendDataToPeer(associatedValue0, to):
             try container.encode("sendDataToPeer", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.SendDataToPeerKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.to, forKey: .associatedValues1)
-        case let .sendDataResult(associatedValues):
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(to, forKey: .to)
+        case let .sendDataResult(associatedValue0, to, result):
             try container.encode("sendDataResult", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.SendDataResultKeys.self, forKey: .associatedValues)
-            try subContainer.encode(associatedValues.0, forKey: .associatedValues0)
-            try subContainer.encode(associatedValues.to, forKey: .associatedValues1)
-            try subContainer.encode(encodeResult(associatedValues.result), forKey: .associatedValues2)
+            try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(to, forKey: .to)
+            try subContainer.encode(encodeResult(result), forKey: .result)
         }
     }
 }

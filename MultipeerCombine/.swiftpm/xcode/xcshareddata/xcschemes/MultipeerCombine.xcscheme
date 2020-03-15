@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D69218D1241DD50500A888D4"
-               BuildableName = "Sourcery"
-               BlueprintName = "Sourcery"
-               ReferencedContainer = "container:../SwiftRexMonitor.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "MultipeerRedux"
-               BuildableName = "MultipeerRedux"
-               BlueprintName = "MultipeerRedux"
+               BlueprintIdentifier = "MultipeerCombine"
+               BuildableName = "MultipeerCombine"
+               BlueprintName = "MultipeerCombine"
                ReferencedContainer = "container:">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "MultipeerReduxTests"
-               BuildableName = "MultipeerReduxTests"
-               BlueprintName = "MultipeerReduxTests"
+               BlueprintIdentifier = "MultipeerCombineTests"
+               BuildableName = "MultipeerCombineTests"
+               BlueprintName = "MultipeerCombineTests"
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
@@ -74,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "MultipeerRedux"
-            BuildableName = "MultipeerRedux"
-            BlueprintName = "MultipeerRedux"
+            BlueprintIdentifier = "MultipeerCombine"
+            BuildableName = "MultipeerCombine"
+            BlueprintName = "MultipeerCombine"
             ReferencedContainer = "container:">
          </BuildableReference>
       </MacroExpansion>

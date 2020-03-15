@@ -1,13 +1,14 @@
 {% for import in argument.imports %}
 import {{ import }}
 {% endfor %}
-{% macro tuplifyAssociatedValues array %}{% if array.count > 1 or array[0].typeName|contains:"->" %}({% endif %}{% for value in array %}{% if array.count > 1 and value.localName %}{{ value.localName }}: {% endif %}{{ value.typeName }}.self{{ ', ' if not forloop.last }}{% endfor %}{% if array.count > 1 or array[0].typeName|contains:"->" %}){% endif %}{% endmacro %}
+{% macro associatedValueName caseAssociatedValue index %}{% if caseAssociatedValue.localName %}{{ caseAssociatedValue.localName }}{% else %}associatedValue{{ index }}{% endif %}{% endmacro %}
+{% macro expandAssociatedValues array %}{% for value in array %}{% call associatedValueName value forloop.counter0 %}{{ ', ' if not forloop.last }}{% endfor %}{% endmacro %}
 {% macro caseDecoder case %}
 {% if case.hasAssociatedValue %}
         case "{{ case.name }}":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.{{ case.name | upperFirstLetter }}Keys.self, forKey: .associatedValues)
             {% for value in case.associatedValues %}
-            let associatedValues{{ forloop.counter0 }} = try subContainer.decode({{ value.typeName }}.self, forKey: .associatedValues{{ forloop.counter0 }})
+            let associatedValues{{ forloop.counter0 }} = try subContainer.decode({{ value.typeName }}.self, forKey: .{% call associatedValueName value forloop.counter0 %})
             {% endfor %}
             self = .{{ case.name }}({% for value in case.associatedValues %}{% if value.localName %}{{ value.localName }}: {% endif %}associatedValues{{ forloop.counter0 }}{{ ', ' if not forloop.last }}{% endfor %})
 {% else %}
@@ -17,22 +18,14 @@ import {{ import }}
 {% endmacro %}
 {% macro caseEncoder case %}
 {% if case.hasAssociatedValue %}
-        case let .{{ case.name }}(associatedValues):
+        case let .{{ case.name }}({% call expandAssociatedValues case.associatedValues %}):
             try container.encode("{{ case.name }}", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.{{ case.name | upperFirstLetter }}Keys.self, forKey: .associatedValues)
-            {% for value in case.associatedValues %}
-                {% if value.localName and case.associatedValues.count > 1 %}
-                    {% if value.annotations.CustomEncoder %}
-            try subContainer.encode({{ value.annotations.CustomEncoder }}(associatedValues.{{ value.localName }}), forKey: .associatedValues{{ forloop.counter0 }})
-                    {% else %}
-            try subContainer.encode(associatedValues.{{ value.localName }}, forKey: .associatedValues{{ forloop.counter0 }})
-                    {% endif %}
+            {% for value in case.associatedValues %}                
+                {% if value.annotations.CustomEncoder %}
+            try subContainer.encode({{ value.annotations.CustomEncoder }}({% call associatedValueName value forloop.counter0 %}), forKey: .{% call associatedValueName value forloop.counter0 %})
                 {% else %}
-                    {% if value.annotations.CustomEncoder %}
-            try subContainer.encode({{ value.annotations.CustomEncoder }}(associatedValues{% if case.associatedValues.count > 1 %}.{{ forloop.counter0 }}{% endif %}), forKey: .associatedValues{{ forloop.counter0 }})
-                    {% else %}
-            try subContainer.encode(associatedValues{% if case.associatedValues.count > 1 %}.{{ forloop.counter0 }}{% endif %}, forKey: .associatedValues{{ forloop.counter0 }})
-                    {% endif %}
+            try subContainer.encode({% call associatedValueName value forloop.counter0 %}, forKey: .{% call associatedValueName value forloop.counter0 %})
                 {% endif %}
             {% endfor %}
 {% else %}
@@ -44,11 +37,7 @@ import {{ import }}
 {% if case.hasAssociatedValue %}
         enum {{ case.name | upperFirstLetter }}Keys: String, CodingKey {
             {% for value in case.associatedValues %}
-            {% if value.localName %}
-            case associatedValues{{ forloop.counter0 }} = "{{ value.localName }}"
-            {% else %}
-            case associatedValues{{ forloop.counter0 }}
-            {% endif %}
+            case {% call associatedValueName value forloop.counter0 %}
             {% endfor %}
         }
 {% endif %}
