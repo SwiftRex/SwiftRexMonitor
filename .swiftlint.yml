@@ -1,0 +1,56 @@
+excluded:
+  - .swiftpm
+  - "*/CodeGen/*.generated.swift"
+  - "*/*/CodeGen/*.generated.swift"
+  - "*/*/*/CodeGen/*.generated.swift"
+  - "**/Package.swift"
+  - "Tools"
+opt_in_rules: # some rules are only opt-in
+  - class_delegate_protocol
+  - closure_end_indentation
+  - closure_spacing
+  - collection_alignment
+  - colon
+  - contains_over_first_not_nil
+  - empty_string
+  - empty_xctest_method
+  - first_where
+  - last_where
+  - literal_expression_end_indentation
+  - lower_acl_than_parent
+  - modifier_order
+  - multiline_parameters
+  - no_extension_access_modifier
+  - nslocalizedstring_key
+  - operator_usage_whitespace
+  - overridden_super_call
+  - override_in_extension
+  - pattern_matching_keywords
+  - redundant_nil_coalescing
+  - sorted_first_last
+  - sorted_imports
+  - unused_import
+  - unused_declaration
+  - vertical_whitespace
+disabled_rules:
+  - todo
+  - large_tuple
+line_length: 150
+nesting:
+  type_level:
+    warning: 2
+type_name:
+  max_length: # warning and error
+    warning: 50
+    error: 90
+type_body_length:
+  warning: 320
+file_length:
+  warning: 560
+identifier_name:
+  allowed_symbols: "_"
+  min_length: 1
+  max_length: 50
+cyclomatic_complexity:
+  ignores_case_statements: true
+

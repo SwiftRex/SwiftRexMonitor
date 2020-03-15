@@ -1,0 +1,9 @@
+sources:
+    - .
+templates:
+  - ../Tools/SourceryTemplates
+output:
+  CodeGen
+args:
+  imports: ["MultipeerConnectivity", "MultipeerRedux"]
+  testable-imports: []

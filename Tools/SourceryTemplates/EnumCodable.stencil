@@ -1,0 +1,92 @@
+{% for import in argument.imports %}
+import {{ import }}
+{% endfor %}
+{% macro tuplifyAssociatedValues array %}{% if array.count > 1 or array[0].typeName|contains:"->" %}({% endif %}{% for value in array %}{% if array.count > 1 and value.localName %}{{ value.localName }}: {% endif %}{{ value.typeName }}.self{{ ', ' if not forloop.last }}{% endfor %}{% if array.count > 1 or array[0].typeName|contains:"->" %}){% endif %}{% endmacro %}
+{% macro caseDecoder case %}
+{% if case.hasAssociatedValue %}
+        case "{{ case.name }}":
+            let subContainer = try container.nestedContainer(keyedBy: CodingKeys.{{ case.name | upperFirstLetter }}Keys.self, forKey: .associatedValues)
+            {% for value in case.associatedValues %}
+            let associatedValues{{ forloop.counter0 }} = try subContainer.decode({{ value.typeName }}.self, forKey: .associatedValues{{ forloop.counter0 }})
+            {% endfor %}
+            self = .{{ case.name }}({% for value in case.associatedValues %}{% if value.localName %}{{ value.localName }}: {% endif %}associatedValues{{ forloop.counter0 }}{{ ', ' if not forloop.last }}{% endfor %})
+{% else %}
+        case "{{ case.name }}":
+            self = .{{ case.name }}
+{% endif %}
+{% endmacro %}
+{% macro caseEncoder case %}
+{% if case.hasAssociatedValue %}
+        case let .{{ case.name }}(associatedValues):
+            try container.encode("{{ case.name }}", forKey: .type)
+            var subContainer = container.nestedContainer(keyedBy: CodingKeys.{{ case.name | upperFirstLetter }}Keys.self, forKey: .associatedValues)
+            {% for value in case.associatedValues %}
+                {% if value.localName and case.associatedValues.count > 1 %}
+                    {% if value.annotations.CustomEncoder %}
+            try subContainer.encode({{ value.annotations.CustomEncoder }}(associatedValues.{{ value.localName }}), forKey: .associatedValues{{ forloop.counter0 }})
+                    {% else %}
+            try subContainer.encode(associatedValues.{{ value.localName }}, forKey: .associatedValues{{ forloop.counter0 }})
+                    {% endif %}
+                {% else %}
+                    {% if value.annotations.CustomEncoder %}
+            try subContainer.encode({{ value.annotations.CustomEncoder }}(associatedValues{% if case.associatedValues.count > 1 %}.{{ forloop.counter0 }}{% endif %}), forKey: .associatedValues{{ forloop.counter0 }})
+                    {% else %}
+            try subContainer.encode(associatedValues{% if case.associatedValues.count > 1 %}.{{ forloop.counter0 }}{% endif %}, forKey: .associatedValues{{ forloop.counter0 }})
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+{% else %}
+        case .{{ case.name }}:
+            try container.encode("{{ case.name }}", forKey: .type)
+{% endif %}
+{% endmacro %}
+{% macro caseKeys case %}
+{% if case.hasAssociatedValue %}
+        enum {{ case.name | upperFirstLetter }}Keys: String, CodingKey {
+            {% for value in case.associatedValues %}
+            {% if value.localName %}
+            case associatedValues{{ forloop.counter0 }} = "{{ value.localName }}"
+            {% else %}
+            case associatedValues{{ forloop.counter0 }}
+            {% endif %}
+            {% endfor %}
+        }
+{% endif %}
+{% endmacro %}
+{% for type in types.enums where type.based.EnumCodable or type|annotated:"EnumCodable" %}{% if type.name != "EnumCodable" %}
+extension {{ type.name }}: {% if type.annotations.EnumCodable == "EncodeOnly" %}Encodable{% elif type.annotations.EnumCodable == "DecodeOnly" %}Decodable{% else %}Codable{% endif %} {
+    enum CodingKeys: String, CodingKey {
+        case type
+        case associatedValues
+
+        {% for case in type.cases %}
+        {% call caseKeys case %}
+        {% endfor %}
+    }
+
+    {% if not type.annotations.EnumCodable == "EncodeOnly" %}
+    {{ type.accessLevel }} init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        switch try container.decode(String.self, forKey: .type) {
+        {% for case in type.cases %}
+        {% call caseDecoder case %}
+        {% endfor %}
+        default:
+            throw DecodingError.keyNotFound(CodingKeys.type, .init(codingPath: container.codingPath, debugDescription: "Unknown key"))
+        }
+    }
+    {% endif %}
+
+    {% if not type.annotations.EnumCodable == "DecodeOnly" %}
+    {{ type.accessLevel }} func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        switch self {
+        {% for case in type.cases %}
+        {% call caseEncoder case %}
+        {% endfor %}
+        }
+    }
+    {% endif %}
+}
+{% endif %}
+{% endfor %}
