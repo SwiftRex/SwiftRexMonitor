@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import MonitoredAppMiddleware
 import MultipeerCombine
 import MultipeerRedux
 import SwiftRex

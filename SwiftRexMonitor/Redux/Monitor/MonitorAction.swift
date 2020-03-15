@@ -1,4 +1,5 @@
 import Foundation
+import MonitoredAppMiddleware
 import MultipeerRedux
 
 // sourcery: EnumCodable

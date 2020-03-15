@@ -10,6 +10,7 @@ import UIKit
 import AppKit
 #endif
 
+import MonitoredAppMiddleware
 import MultipeerConnectivity
 import MultipeerRedux
 

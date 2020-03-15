@@ -30,6 +30,7 @@
 		D64C383D241D822C008D470F /* FPUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C383C241D822C008D470F /* FPUtils.swift */; };
 		D64C383F241D824E008D470F /* Function+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C383E241D824E008D470F /* Function+Zip.swift */; };
 		D64C3843241D9B9D008D470F /* MultipeerCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D64C3842241D9B9D008D470F /* MultipeerCombine */; };
+		D658A7C1241DEE280093EEA1 /* MonitoredAppMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D658A7C0241DEE280093EEA1 /* MonitoredAppMiddleware */; };
 		D69218D8241DE32200A888D4 /* LoggerMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69218D7241DE32200A888D4 /* LoggerMiddleware.swift */; };
 		D69ED03323EB8602002C1FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED03223EB8602002C1FDB /* AppDelegate.swift */; };
 		D69ED03523EB8602002C1FDB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED03423EB8602002C1FDB /* ContentView.swift */; };
@@ -38,18 +39,11 @@
 		D69ED03D23EB8603002C1FDB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D69ED03B23EB8603002C1FDB /* Main.storyboard */; };
 		D69ED04723EB8B1E002C1FDB /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED04623EB8B1E002C1FDB /* Collection.swift */; };
 		D69ED04923EB8B31002C1FDB /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED04823EB8B31002C1FDB /* Data.swift */; };
-		D69ED05323EB8B87002C1FDB /* MonitoredApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED04D23EB8B87002C1FDB /* MonitoredApp.swift */; };
-		D69ED05523EB8B87002C1FDB /* ClientInstallationId.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED04F23EB8B87002C1FDB /* ClientInstallationId.swift */; };
-		D69ED05823EB8B87002C1FDB /* MonitoredDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED05223EB8B87002C1FDB /* MonitoredDevice.swift */; };
 		D69ED06723EB9093002C1FDB /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED06623EB9093002C1FDB /* World.swift */; };
 		D6B6A612241DA77900AF74CA /* MonitorMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A611241DA77900AF74CA /* MonitorMiddleware.swift */; };
 		D6B6A614241DA78400AF74CA /* MonitorAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A613241DA78400AF74CA /* MonitorAction.swift */; };
 		D6B6A618241DB0BB00AF74CA /* MonitorReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A617241DB0BB00AF74CA /* MonitorReducer.swift */; };
 		D6B6A61A241DB82300AF74CA /* Result+Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A619241DB82300AF74CA /* Result+Prism.swift */; };
-		D6B6A61C241DBD1000AF74CA /* MessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A61B241DBD1000AF74CA /* MessageType.swift */; };
-		D6B6A620241DBFA700AF74CA /* ActionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A61F241DBFA700AF74CA /* ActionMessage.swift */; };
-		D6B6A622241DC1F500AF74CA /* PayloadTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A621241DC1F500AF74CA /* PayloadTree.swift */; };
-		D6B6A624241DC4FB00AF74CA /* PeerMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A623241DC4FB00AF74CA /* PeerMetadata.swift */; };
 		D6B6A626241DC51000AF74CA /* MonitoredPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A625241DC51000AF74CA /* MonitoredPeer.swift */; };
 		D6C7C536241C0B93000F89EF /* CombineRex in Frameworks */ = {isa = PBXBuildFile; productRef = D6C7C535241C0B93000F89EF /* CombineRex */; };
 		D6C7C538241C10A5000F89EF /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C7C537241C10A5000F89EF /* Store.swift */; };
@@ -67,6 +61,7 @@
 		D64C383C241D822C008D470F /* FPUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPUtils.swift; sourceTree = "<group>"; };
 		D64C383E241D824E008D470F /* Function+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Function+Zip.swift"; sourceTree = "<group>"; };
 		D64C3840241D9AE2008D470F /* MultipeerCombine */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MultipeerCombine; sourceTree = "<group>"; };
+		D658A7BF241DEBC00093EEA1 /* MonitoredAppMiddleware */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MonitoredAppMiddleware; sourceTree = "<group>"; };
 		D69218D7241DE32200A888D4 /* LoggerMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMiddleware.swift; sourceTree = "<group>"; };
 		D69ED02F23EB8602002C1FDB /* SwiftRexMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRexMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D69ED03223EB8602002C1FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,18 +73,11 @@
 		D69ED03F23EB8603002C1FDB /* SwiftRexMonitor.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SwiftRexMonitor.entitlements; sourceTree = "<group>"; };
 		D69ED04623EB8B1E002C1FDB /* Collection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		D69ED04823EB8B31002C1FDB /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
-		D69ED04D23EB8B87002C1FDB /* MonitoredApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitoredApp.swift; sourceTree = "<group>"; };
-		D69ED04F23EB8B87002C1FDB /* ClientInstallationId.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientInstallationId.swift; sourceTree = "<group>"; };
-		D69ED05223EB8B87002C1FDB /* MonitoredDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonitoredDevice.swift; sourceTree = "<group>"; };
 		D69ED06623EB9093002C1FDB /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		D6B6A611241DA77900AF74CA /* MonitorMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorMiddleware.swift; sourceTree = "<group>"; };
 		D6B6A613241DA78400AF74CA /* MonitorAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorAction.swift; sourceTree = "<group>"; };
 		D6B6A617241DB0BB00AF74CA /* MonitorReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorReducer.swift; sourceTree = "<group>"; };
 		D6B6A619241DB82300AF74CA /* Result+Prism.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Result+Prism.swift"; sourceTree = "<group>"; };
-		D6B6A61B241DBD1000AF74CA /* MessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageType.swift; sourceTree = "<group>"; };
-		D6B6A61F241DBFA700AF74CA /* ActionMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionMessage.swift; sourceTree = "<group>"; };
-		D6B6A621241DC1F500AF74CA /* PayloadTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadTree.swift; sourceTree = "<group>"; };
-		D6B6A623241DC4FB00AF74CA /* PeerMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeerMetadata.swift; sourceTree = "<group>"; };
 		D6B6A625241DC51000AF74CA /* MonitoredPeer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitoredPeer.swift; sourceTree = "<group>"; };
 		D6C7C537241C10A5000F89EF /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		D6C7C539241C1106000F89EF /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
@@ -104,6 +92,7 @@
 			files = (
 				D64C3843241D9B9D008D470F /* MultipeerCombine in Frameworks */,
 				D630822F241DA24F0025C33C /* MultipeerRedux in Frameworks */,
+				D658A7C1241DEE280093EEA1 /* MonitoredAppMiddleware in Frameworks */,
 				D6C7C536241C0B93000F89EF /* CombineRex in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -140,6 +129,7 @@
 		D69ED02623EB8602002C1FDB = {
 			isa = PBXGroup;
 			children = (
+				D658A7BF241DEBC00093EEA1 /* MonitoredAppMiddleware */,
 				D64C3840241D9AE2008D470F /* MultipeerCombine */,
 				D6E97225241DA19600DEE9A5 /* MultipeerRedux */,
 				D69ED03123EB8602002C1FDB /* SwiftRexMonitor */,
@@ -193,16 +183,9 @@
 		D69ED04C23EB8B7F002C1FDB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D6B6A61F241DBFA700AF74CA /* ActionMessage.swift */,
 				D6C7C53B241C115F000F89EF /* AppAction.swift */,
 				D6C7C539241C1106000F89EF /* AppState.swift */,
-				D69ED04F23EB8B87002C1FDB /* ClientInstallationId.swift */,
-				D6B6A61B241DBD1000AF74CA /* MessageType.swift */,
-				D69ED04D23EB8B87002C1FDB /* MonitoredApp.swift */,
-				D69ED05223EB8B87002C1FDB /* MonitoredDevice.swift */,
 				D6B6A625241DC51000AF74CA /* MonitoredPeer.swift */,
-				D6B6A621241DC1F500AF74CA /* PayloadTree.swift */,
-				D6B6A623241DC4FB00AF74CA /* PeerMetadata.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -279,6 +262,7 @@
 				D6C7C535241C0B93000F89EF /* CombineRex */,
 				D64C3842241D9B9D008D470F /* MultipeerCombine */,
 				D630822E241DA24F0025C33C /* MultipeerRedux */,
+				D658A7C0241DEE280093EEA1 /* MonitoredAppMiddleware */,
 			);
 			productName = SwiftRexMonitor;
 			productReference = D69ED02F23EB8602002C1FDB /* SwiftRexMonitor.app */;
@@ -372,7 +356,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd $PROJECT_DIR/MultipeerRedux/Sources/MultipeerRedux && ../../../Tools/sourcery\ncd $PROJECT_DIR/SwiftRexMonitor && ../Tools/sourcery\n";
+			shellScript = "cd $PROJECT_DIR/MultipeerRedux/Sources/MultipeerRedux && ../../../Tools/sourcery\ncd $PROJECT_DIR/MonitoredAppMiddleware/Sources/MonitoredAppMiddleware && ../../../Tools/sourcery\ncd $PROJECT_DIR/SwiftRexMonitor && ../Tools/sourcery\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -385,9 +369,6 @@
 				D6C7C53A241C1106000F89EF /* AppState.swift in Sources */,
 				D64C383B241D7FFB008D470F /* Operators.swift in Sources */,
 				D69218D8241DE32200A888D4 /* LoggerMiddleware.swift in Sources */,
-				D6B6A620241DBFA700AF74CA /* ActionMessage.swift in Sources */,
-				D69ED05523EB8B87002C1FDB /* ClientInstallationId.swift in Sources */,
-				D6B6A624241DC4FB00AF74CA /* PeerMetadata.swift in Sources */,
 				D64C383F241D824E008D470F /* Function+Zip.swift in Sources */,
 				D6C7C538241C10A5000F89EF /* Store.swift in Sources */,
 				D64C3839241D748A008D470F /* Result+Codable.swift in Sources */,
@@ -396,10 +377,7 @@
 				D69ED03323EB8602002C1FDB /* AppDelegate.swift in Sources */,
 				D64C3831241D677D008D470F /* EnumCodable.generated.swift in Sources */,
 				D64C382F241D6705008D470F /* TypeErase.generated.abstract.swift in Sources */,
-				D69ED05323EB8B87002C1FDB /* MonitoredApp.swift in Sources */,
-				D6B6A61C241DBD1000AF74CA /* MessageType.swift in Sources */,
 				D6B6A614241DA78400AF74CA /* MonitorAction.swift in Sources */,
-				D69ED05823EB8B87002C1FDB /* MonitoredDevice.swift in Sources */,
 				D6B6A618241DB0BB00AF74CA /* MonitorReducer.swift in Sources */,
 				D64C383D241D822C008D470F /* FPUtils.swift in Sources */,
 				D64C3833241D67C1008D470F /* Prism.generated.swift in Sources */,
@@ -407,7 +385,6 @@
 				D69ED06723EB9093002C1FDB /* World.swift in Sources */,
 				D6B6A61A241DB82300AF74CA /* Result+Prism.swift in Sources */,
 				D69ED04923EB8B31002C1FDB /* Data.swift in Sources */,
-				D6B6A622241DC1F500AF74CA /* PayloadTree.swift in Sources */,
 				D6B6A626241DC51000AF74CA /* MonitoredPeer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -656,6 +633,10 @@
 		D64C3842241D9B9D008D470F /* MultipeerCombine */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MultipeerCombine;
+		};
+		D658A7C0241DEE280093EEA1 /* MonitoredAppMiddleware */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MonitoredAppMiddleware;
 		};
 		D6C7C535241C0B93000F89EF /* CombineRex */ = {
 			isa = XCSwiftPackageProductDependency;
