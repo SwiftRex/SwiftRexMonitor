@@ -1,0 +1,4 @@
+*.pbxproj merge=union
+*.swift   text diff=swift
+
+Tools/* linguist-vendored
