@@ -61,7 +61,8 @@ extension AppState {
 import CasePaths
 
 let appReducer: Reducer<AppAction, AppState> =
-    counterViewReducer.lift(
+    activityFeedReducer
+    <> counterViewReducer.lift(
         actionGetter: /AppAction.counterView,
         stateGetter: { $0.counterView },
         stateSetter: setter(\AppState.counterView)
@@ -72,44 +73,23 @@ let appReducer: Reducer<AppAction, AppState> =
     )
 
 let appMiddleware: ComposedMiddleware<AppAction, AppAction, AppState> =
-    CounterMiddleware().lift(
+    LoggerMiddleware().lift(
+        inputActionMap: { $0 },
+        outputActionMap: absurd,
+        stateMap: { $0 }
+    )
+
+    <> CounterMiddleware().lift(
         inputActionMap: (/AppAction.counterView .. /CounterViewAction.counter).extract,
         outputActionMap: (/AppAction.counterView .. /CounterViewAction.counter).embed,
         stateMap: { $0.count }
     )
+
     <> FavoritePrimesMiddleware().lift(
         inputActionMap: (/AppAction.favoritePrimes).extract,
         outputActionMap: (/AppAction.favoritePrimes).embed,
         stateMap: { $0.favoritePrimes }
     )
-
-
-//func activityFeed(
-//    _ reducer: @escaping Reducer<AppState, AppAction>
-//) -> Reducer<AppState, AppAction> {
-//
-//    return { state, action in
-//        switch action {
-//        case .counterView(.counter),
-//             .favoritePrimes(.loadedFavoritePrimes),
-//             .favoritePrimes(.loadButtonTapped),
-//             .favoritePrimes(.saveButtonTapped):
-//            break
-//        case .counterView(.primeModal(.removeFavoritePrimeTapped)):
-//            state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.count)))
-//
-//        case .counterView(.primeModal(.saveFavoritePrimeTapped)):
-//            state.activityFeed.append(.init(timestamp: Date(), type: .addedFavoritePrime(state.count)))
-//
-//        case let .favoritePrimes(.deleteFavoritePrimes(indexSet)):
-//            for index in indexSet {
-//                state.activityFeed.append(.init(timestamp: Date(), type: .removedFavoritePrime(state.favoritePrimes[index])))
-//            }
-//        }
-//
-//        return reducer(&state, action)
-//    }
-//}
 
 struct ContentView: View {
     @ObservedObject var store: ObservableViewModel<AppAction, AppState>
