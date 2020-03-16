@@ -1,8 +1,8 @@
-import XCTest
 import CombineRex
+@testable import Counter
 @testable import PrimeTime
 import SwiftRex
-@testable import Counter
+import XCTest
 
 class PrimeTimeTests: XCTestCase {
     func testExample() {

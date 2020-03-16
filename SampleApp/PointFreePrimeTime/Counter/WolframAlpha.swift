@@ -14,9 +14,10 @@ struct WolframAlphaResult: Decodable {
             let primary: Bool?
             let subpods: [SubPod]
 
-            struct SubPod: Decodable {
-                let plaintext: String
-            }
+        }
+
+        struct SubPod: Decodable {
+            let plaintext: String
         }
     }
 }
@@ -31,7 +32,7 @@ func nthPrime(_ n: Int) -> AnyPublisher<Int?, Never> {
                     .subpods
                     .first?
                     .plaintext
-        }
+            }
         .flatMap(Int.init)
     }
     .eraseToAnyPublisher()
@@ -43,7 +44,7 @@ func wolframAlpha(query: String) -> AnyPublisher<WolframAlphaResult?, Never> {
         URLQueryItem(name: "input", value: query),
         URLQueryItem(name: "format", value: "plaintext"),
         URLQueryItem(name: "output", value: "JSON"),
-        URLQueryItem(name: "appid", value: wolframAlphaApiKey),
+        URLQueryItem(name: "appid", value: wolframAlphaApiKey)
     ]
 
     return URLSession.shared
@@ -55,7 +56,7 @@ func wolframAlpha(query: String) -> AnyPublisher<WolframAlphaResult?, Never> {
 }
 
 extension Publisher {
-    public var hush: Publishers.ReplaceError<Publishers.Map<Self, Optional<Self.Output>>> {
+    public var hush: Publishers.ReplaceError<Publishers.Map<Self, Self.Output?>> {
         return self.map(Optional.some).replaceError(with: nil)
     }
 }

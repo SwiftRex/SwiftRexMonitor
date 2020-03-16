@@ -98,10 +98,10 @@ extension CounterEnvironment {
     static let live = CounterEnvironment(nthPrime: Counter.nthPrime)
 }
 
-var Current = CounterEnvironment.live
+var Current = CounterEnvironment.live // swiftlint:disable:this identifier_name
 
 extension CounterEnvironment {
-    static let mock = CounterEnvironment(nthPrime: { _ in .sync { 17 }})
+    static let mock = CounterEnvironment(nthPrime: { _ in .sync { 17 } })
 }
 
 import CasePaths
@@ -183,19 +183,21 @@ public struct CounterView: View {
         .navigationBarTitle("Counter demo")
         .sheet(
             isPresented: .constant(self.store.state.isPrimeModalShown),
-            onDismiss: { self.store.dispatch(.counter(.primeModalDismissed)) }
-        ) {
-            IsPrimeModalView(
-                store: self.store.projection(
-                    action: { .primeModal($0) },
-                    state: { ($0.count, $0.favoritePrimes) }
-                ).asObservableViewModel(
-                    initialState: (0, []),
-                    emitsValue: .when { lhs, rhs in
-                        lhs.count != rhs.count || lhs.favoritePrimes != rhs.favoritePrimes
-                    })
-            )
-        }
+            onDismiss: { self.store.dispatch(.counter(.primeModalDismissed)) },
+            content: {
+                IsPrimeModalView(
+                    store: self.store.projection(
+                        action: { .primeModal($0) },
+                        state: { ($0.count, $0.favoritePrimes) }
+                    ).asObservableViewModel(
+                        initialState: (0, []),
+                        emitsValue: .when { lhs, rhs in
+                            lhs.count != rhs.count || lhs.favoritePrimes != rhs.favoritePrimes
+                        }
+                    )
+                )
+            }
+        )
         .alert(
             item: .constant(self.store.state.alertNthPrime)
         ) { alert in

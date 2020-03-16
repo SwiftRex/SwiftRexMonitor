@@ -9,9 +9,9 @@ import Utils
 struct AppState: Equatable {
     var count = 0
     var favoritePrimes: [Int] = []
-    var loggedInUser: User? = nil
+    var loggedInUser: User?
     var activityFeed: [Activity] = []
-    var alertNthPrime: PrimeAlert? = nil
+    var alertNthPrime: PrimeAlert?
     var isNthPrimeButtonDisabled: Bool = false
     var isPrimeModalShown: Bool = false
 
@@ -59,6 +59,7 @@ extension AppState {
 }
 
 import CasePaths
+import MonitoredAppMiddleware
 
 let appReducer: Reducer<AppAction, AppState> =
     activityFeedReducer
@@ -78,6 +79,8 @@ let appMiddleware: ComposedMiddleware<AppAction, AppAction, AppState> =
         outputActionMap: absurd,
         stateMap: { $0 }
     )
+
+    <> MonitoredAppMiddleware<AppAction, AppState>()
 
     <> CounterMiddleware().lift(
         inputActionMap: (/AppAction.counterView .. /CounterViewAction.counter).extract,

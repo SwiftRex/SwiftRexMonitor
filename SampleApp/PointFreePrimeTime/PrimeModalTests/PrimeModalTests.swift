@@ -1,6 +1,6 @@
-import XCTest
 @testable import PrimeModal
 @testable import SwiftRex
+import XCTest
 
 class PrimeModalTests: XCTestCase {
     func testSaveFavoritesPrimesTapped() {

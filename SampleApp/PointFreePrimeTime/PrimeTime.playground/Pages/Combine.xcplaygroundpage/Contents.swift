@@ -1,4 +1,3 @@
-
 public struct Effect<A> {
   public let run: (@escaping (A) -> Void) -> Void
 
@@ -25,7 +24,6 @@ import Combine
 //Publisher.init
 
 //AnyPublisher.init(<#T##publisher: Publisher##Publisher#>)
-
 
 var count = 0
 let iterator = AnyIterator<Int>.init {

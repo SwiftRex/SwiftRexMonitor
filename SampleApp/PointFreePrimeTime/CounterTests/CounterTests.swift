@@ -1,9 +1,9 @@
-import XCTest
 import CombineRex
 @testable import Counter
 import SnapshotTesting
 @testable import SwiftRex
 import SwiftUI
+import XCTest
 
 extension Snapshotting where Value: UIViewController, Format == UIImage {
     static var windowedImage: Snapshotting {
@@ -13,7 +13,7 @@ extension Snapshotting where Value: UIViewController, Format == UIImage {
                 let window = UIApplication.shared.windows.first!
                 window.rootViewController = vc
                 DispatchQueue.main.async {
-                    let image = UIGraphicsImageRenderer(bounds: window.bounds).image { ctx in
+                    let image = UIGraphicsImageRenderer(bounds: window.bounds).image { _ in
                         window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
                     }
                     callback(image)
@@ -48,7 +48,7 @@ class CounterTests: XCTestCase {
         vc.view.frame = UIScreen.main.bounds
 
         diffTool = "ksdiff"
-        // record=true
+        // record = true
         assertSnapshot(matching: vc, as: .windowedImage)
 
         store.dispatch(.counter(.incrTapped))

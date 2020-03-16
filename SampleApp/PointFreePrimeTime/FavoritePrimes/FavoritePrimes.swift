@@ -34,7 +34,7 @@ public final class FavoritePrimesMiddleware: Middleware {
         case .saveButtonTapped:
             afterReducer = .do {
                 Current.fileClient
-                    .save("favorite-primes.json", try! JSONEncoder().encode(self.getState()))
+                    .save("favorite-primes.json", try! JSONEncoder().encode(self.getState())) // swiftlint:disable:this force_try
                     .fireAndForget()
                     .sink { }
                     .store(in: &self.cancellables)
@@ -45,11 +45,11 @@ public final class FavoritePrimesMiddleware: Middleware {
                 Current.fileClient.load("favorite-primes.json")
                     .compactMap { $0 }
                     .decode(type: [Int].self, decoder: JSONDecoder())
-                    .catch { error in Empty(completeImmediately: true) }
+                    .catch { _ in Empty(completeImmediately: true) }
                     .map(FavoritePrimesAction.loadedFavoritePrimes)
                     .sink { [weak self] action in
                         self?.output?.dispatch(action)
-                }.store(in: &self.cancellables)
+                    }.store(in: &self.cancellables)
             }
         }
     }
@@ -83,15 +83,15 @@ extension FileClient {
                 let favoritePrimesUrl = documentsUrl.appendingPathComponent(fileName)
                 return try? Data(contentsOf: favoritePrimesUrl)
             }
-    },
+        },
         save: { fileName, data in
             return .fireAndForget {
                 let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
                 let documentsUrl = URL(fileURLWithPath: documentsPath)
                 let favoritePrimesUrl = documentsUrl.appendingPathComponent(fileName)
-                try! data.write(to: favoritePrimesUrl)
+                try! data.write(to: favoritePrimesUrl) // swiftlint:disable:this force_try
             }
-    }
+        }
     )
 }
 
@@ -102,15 +102,16 @@ extension FavoritePrimesEnvironment {
     static let live = FavoritePrimesEnvironment(fileClient: .live)
 }
 
-var Current = FavoritePrimesEnvironment.live
+var Current = FavoritePrimesEnvironment.live // swiftlint:disable:this identifier_name
 
 #if DEBUG
 extension FavoritePrimesEnvironment {
     static let mock = FavoritePrimesEnvironment(
         fileClient: FileClient(
             load: { _ in AnyPublisher<Data?, Never>.sync {
-                try! JSONEncoder().encode([2, 31])
-                } },
+                try! JSONEncoder().encode([2, 31]) // swiftlint:disable:this force_try
+            }
+            },
             save: { _, _ in .fireAndForget {} }
         )
     )

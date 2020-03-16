@@ -57,7 +57,11 @@ func assert<M: Middleware>(
                 XCTFail("Action sent before handling \(middlewareResponses.count) pending effect(s)", file: step.file, line: step.line)
             }
             var afterReducer: AfterReducer = .doNothing()
-            middleware.handle(action: step.action, from: .init(file: "\(step.file)", function: "", line: step.line, info: nil), afterReducer: &afterReducer)
+            middleware.handle(
+                action: step.action,
+                from: .init(file: "\(step.file)", function: "", line: step.line, info: nil),
+                afterReducer: &afterReducer
+            )
             state = reducer.reduce(step.action, state)
             afterReducer.reducerIsDone()
         case .receive:
@@ -71,7 +75,11 @@ func assert<M: Middleware>(
             let first = middlewareResponses.removeFirst()
             XCTAssertEqual(first, step.action, file: step.file, line: step.line)
             var afterReducer: AfterReducer = .doNothing()
-            middleware.handle(action: step.action, from: .init(file: "\(step.file)", function: "", line: step.line, info: nil), afterReducer: &afterReducer)
+            middleware.handle(
+                action: step.action,
+                from: .init(file: "\(step.file)", function: "", line: step.line, info: nil),
+                afterReducer: &afterReducer
+            )
             state = reducer.reduce(step.action, state)
             afterReducer.reducerIsDone()
         }
@@ -79,26 +87,8 @@ func assert<M: Middleware>(
         step.update(&expected)
         XCTAssertEqual(state, expected, file: step.file, line: step.line)
     }
+
     if !middlewareResponses.isEmpty {
         XCTFail("Assertion failed to handle \(middlewareResponses.count) pending effect(s)", file: file, line: line)
-    }
-
-    func handle<M: Middleware>(
-        action: M.InputActionType,
-        state: M.StateType,
-        middleware: M,
-        reducer: Reducer<M.InputActionType, M.StateType>,
-        middlewareActions: PassthroughSubject<M.OutputActionType, Never>
-    ) -> M.StateType where M.InputActionType == M.OutputActionType {
-        var afterReducer = AfterReducer.doNothing()
-        var state = state
-        middleware.receiveContext(
-            getState: { state },
-            output: .init { action, _ in middlewareActions.send(action) }
-        )
-        middleware.handle(action: action, from: .here(), afterReducer: &afterReducer)
-        state = reducer.reduce(action, state)
-        afterReducer.reducerIsDone()
-        return state
     }
 }

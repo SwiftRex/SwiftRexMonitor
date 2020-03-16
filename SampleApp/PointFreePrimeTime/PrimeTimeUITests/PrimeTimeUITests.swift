@@ -1,8 +1,9 @@
-import XCTest
 @testable import Counter
+import XCTest
 
 class PrimeTimeUITests: XCTestCase {
   override func setUp() {
+    super.setUp()
     continueAfterFailure = false
     Current = .mock
   }

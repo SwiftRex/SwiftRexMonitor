@@ -5,7 +5,7 @@ import PlaygroundSupport
 import SwiftUI
 
 Current = .mock
-Current.nthPrime = { _ in .sync { 7236893748932 }}
+Current.nthPrime = { _ in .sync { 7236893748932 } }
 
 PlaygroundPage.current.liveView = UIHostingController(
     rootView: CounterView(

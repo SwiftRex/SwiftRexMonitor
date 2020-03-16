@@ -16,6 +16,24 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
                 stateMap: identity
             )
 
+        <> MultipeerBridgeMonitorMiddleware()
+            .lift(
+                inputActionMap: identity,
+                outputActionMap: identity,
+                stateMap: ignore
+            )
+
+        <> MonitorMiddleware
+            .init(
+                multipeerSession: session,
+                decoder: JSONDecoder.init
+            )
+            .lift(
+                inputActionMap: \AppAction.monitor,
+                outputActionMap: AppAction.monitor,
+                stateMap: \AppState.monitoredPeers
+            )
+
         <> MultipeerBrowserMiddleware
             .init(browser: { world.browserPublisher(peer) }, session: session)
             .lift(
@@ -32,13 +50,13 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
                 stateMap: ignore(of: AppState.self)
             )
 
-        <> MultipeerAdvertiserMiddleware
-            .init(advertiser: { world.advertiserPublisher(peer) }, session: session)
-            .lift(
-                inputActionMap: \AppAction.multipeer?.advertiser,
-                outputActionMap: { x in AppAction.multipeer(.advertiser(x)) },
-                stateMap: \AppState.multipeer.advertiser
-            )
+//        <> MultipeerAdvertiserMiddleware
+//            .init(advertiser: { world.advertiserPublisher(peer) }, session: session)
+//            .lift(
+//                inputActionMap: \AppAction.multipeer?.advertiser,
+//                outputActionMap: { x in AppAction.multipeer(.advertiser(x)) },
+//                stateMap: \AppState.multipeer.advertiser
+//            )
 
         <> MultipeerConnectivityMiddleware
             .init(session: session)

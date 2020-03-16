@@ -6,7 +6,7 @@ import SwiftUI
 
 Current = .mock
 Current.fileClient.load = { _ in
-    AnyPublisher.sync { try! JSONEncoder().encode(Array(1...1000)) }
+    AnyPublisher.sync { try! JSONEncoder().encode(Array(1...1000)) } // swiftlint:disable:this force_try
 }
 
 PlaygroundPage.current.liveView = UIHostingController(

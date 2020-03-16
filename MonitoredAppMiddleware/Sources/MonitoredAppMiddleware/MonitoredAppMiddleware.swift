@@ -1,38 +1,84 @@
 import Combine
 import Foundation
+import MultipeerCombine
+import MultipeerConnectivity
+import MultipeerRedux
 import SwiftRex
 
-//public final class MonitoredAppMiddleware: Middleware {
-//    public typealias InputActionType = <#MyInputAction#>
-//    public typealias OutputActionType = <#MyOutputAction#>
-//    public typealias StateType = <#MyState#>
-//
-//    private let <#dependency1#>: () -> <#DependencyType1#>
-//    private let <#dependency2#>: () -> <#DependencyType2#>
-//    private var output: AnyActionHandler<OutputActionType>?
-//    private var getState: GetState<StateType>?
-//    private var cancellables = Set<AnyCancellable>()
-//
-//    public init(
-//        <#dependency1#>: @escaping () -> <#DependencyType1#>,
-//        <#dependency2#>: @escaping () -> <#DependencyType2#>
-//    ) {
-//        self.<#depedency1#> = <#depedency1#>
-//        self.<#depedency2#> = <#depedency2#>
-//    }
-//
-//    public func receiveContext(getState: @escaping GetState<StateType>, output: AnyActionHandler<OutputActionType>) {
-//        self.getState = getState
-//        self.output = output
-//    }
-//
-//    public func handle(action: InputActionType, from dispatcher: ActionSource, afterReducer: inout AfterReducer) {
-//        switch action {
-//        case .<#start#>:
-//            <#start#>()
-//        }
-//    }
-//
-//    private func <#start#>() {
-//    }
-//}
+public final class MonitoredAppMiddleware<Action, State>: Middleware {
+    public typealias InputActionType = Action
+    public typealias OutputActionType = Action
+    public typealias StateType = State
+
+    private var output: AnyActionHandler<OutputActionType>?
+    private var getState: GetState<StateType>?
+    private var cancellables = Set<AnyCancellable>()
+    private let session: MultipeerSession
+    private let advertiser: () -> MultipeerAdvertiserPublisher
+    private let encoder: () -> JSONEncoder
+
+    public init(
+        multipeerSession: (() -> MultipeerSession)? = nil,
+        advertiser: (() -> MultipeerAdvertiserPublisher)? = nil,
+        encoder: @escaping () -> JSONEncoder = JSONEncoder.init
+    ) {
+        let peer = MCPeerID(displayName: "\(UUID().uuidString)")
+        self.session = multipeerSession?() ?? .init(myselfAsPeer: peer)
+        self.advertiser = advertiser ?? { .init(myselfAsPeer: peer, serviceType: "swiftrex") }
+        self.encoder = encoder
+    }
+
+    public func receiveContext(getState: @escaping GetState<StateType>, output: AnyActionHandler<OutputActionType>) {
+        self.getState = getState
+        self.output = output
+
+        advertiser().assertNoFailure().sink { [unowned self] event in
+            switch event {
+            case let .didReceiveInvitationFromPeer(peer, _, handler):
+                handler(true, self.session.session)
+                self.sayHello(peer: peer)
+            }
+        }.store(in: &cancellables)
+    }
+
+    public func handle(action: InputActionType, from dispatcher: ActionSource, afterReducer: inout AfterReducer) {
+        afterReducer = .do {
+            self.sendAction(action: action, from: dispatcher)
+        }
+    }
+
+    private func sayHello(peer: MCPeerID) {
+        send(message:
+            MessageType.introduction(
+                PeerMetadata(
+                    installationId: ClientInstallationId(rawValue: "123")!,
+                    monitoredApp: .init(appName: "Test app", appVersion: "1.0", appIdentifier: "bundle"),
+                    monitoredDevice: .init(deviceName: "iPhone", deviceModel: "X", systemName: "iOS", systemVersion: "13.0")
+                )
+            )
+        )
+    }
+
+    private func sendAction(action: InputActionType, from dispatcher: ActionSource) {
+        send(message:
+            MessageType.action(
+                ActionMessage(
+                    remoteDate: Date(),
+                    action: "\(action)",
+                    actionPayload: .unkeyed(""),
+                    state: .unkeyed(""),
+                    actionSource: dispatcher
+                )
+            )
+        )
+    }
+
+    private func send(message: MessageType) {
+        switch Result(catching: { try encoder().encode(message) }) {
+        case let .success(data):
+            print(session.sendToAll(data))
+        case let .failure(error):
+            print("codable error \(error)")
+        }
+    }
+}

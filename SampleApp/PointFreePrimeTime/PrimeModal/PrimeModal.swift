@@ -56,8 +56,8 @@ public struct IsPrimeModalView: View {
 func isPrime(_ p: Int) -> Bool {
     if p <= 1 { return false }
     if p <= 3 { return true }
-    for i in 2...Int(sqrtf(Float(p))) {
-        if p % i == 0 { return false }
+    for i in 2...Int(sqrtf(Float(p))) where p % i == 0 {
+        return false
     }
     return true
 }

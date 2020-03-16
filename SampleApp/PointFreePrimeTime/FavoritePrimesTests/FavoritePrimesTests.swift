@@ -1,6 +1,6 @@
-import XCTest
 @testable import FavoritePrimes
 @testable import SwiftRex
+import XCTest
 
 class FavoritePrimesTests: XCTestCase {
     var state: [Int] = []
@@ -53,7 +53,7 @@ class FavoritePrimesTests: XCTestCase {
 
     func testLoadFavoritePrimesFlow() {
         let action = FavoritePrimesAction.loadButtonTapped
-        Current.fileClient.load = { _ in .sync { try! JSONEncoder().encode([2, 31]) } }
+        Current.fileClient.load = { _ in .sync { try! JSONEncoder().encode([2, 31]) } } // swiftlint:disable:this force_try
 
         handle(action: action)
 
