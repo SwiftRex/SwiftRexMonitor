@@ -89,7 +89,8 @@ public final class MonitorMiddleware: Middleware {
     }
 
     private func peerListNeedsRefresh() {
-        output?.dispatch(.peerListHasChanged(session().session.connectedPeers.map(Peer.init)))
+        let connectedPeers = session().session.connectedPeers
+        output?.dispatch(.peerListHasChanged(connectedPeers.map(Peer.init)))
     }
 
     private func evaluate(data: Data, from peer: Peer) {

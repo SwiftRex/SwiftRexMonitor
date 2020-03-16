@@ -16,24 +16,18 @@ public class MultipeerSession: NSObject, MCSessionDelegate {
     }
 
     public init(myselfAsPeer: MCPeerID) {
-        session = .init(peer: myselfAsPeer)
+        session = MCSession(peer: myselfAsPeer, securityIdentity: nil, encryptionPreference: .required)
         super.init()
         session.delegate = self
     }
 
-    public func invite(peer: MCPeerID, browser: MCNearbyServiceBrowser, context: Data?, timeout: TimeInterval) -> AnyPublisher<MCPeerID, Error> {
+    public func invite(peer: MCPeerID, browser: MCNearbyServiceBrowser, context: Data?, timeout: TimeInterval) -> AnyPublisher<MCPeerID, Never> {
         _connections
             .filter { event in
                 guard case let .peerConnected(connectedPeer, _) = event else { return false }
                 return connectedPeer == peer
             }
             .map { _ in peer }
-            .mapError { _ -> Error in }
-            .timeout(
-                DispatchQueue.SchedulerTimeType.Stride(floatLiteral: timeout),
-                scheduler: DispatchQueue.main,
-                customError: { NSError(domain: "Timeout", code: -1, userInfo: nil) }
-            )
             .handleEvents(receiveSubscription: { [weak self] _ in
                 guard let self = self else { return }
                 browser.invitePeer(peer, to: self.session, withContext: context, timeout: timeout)

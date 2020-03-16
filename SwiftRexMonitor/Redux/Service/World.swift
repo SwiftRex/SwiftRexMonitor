@@ -1,6 +1,7 @@
 import Foundation
 import MultipeerCombine
 import MultipeerConnectivity
+import MultipeerRedux
 import SwiftRex
 
 public struct World {
@@ -15,9 +16,10 @@ public struct World {
 extension World {
     public static let live: World = {
         let bundle = Bundle.main
-        let serviceType = "swiftrex"
+        let serviceType = "swiftrex-mon"
         let name = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
         let myselfAsPeer = MCPeerID(displayName: name)
+
         let browser = { MultipeerBrowserPublisher(myselfAsPeer: $0, serviceType: serviceType) }
         let advertiser = { MultipeerAdvertiserPublisher(myselfAsPeer: $0, serviceType: serviceType) }
         let session = MultipeerSession(myselfAsPeer: myselfAsPeer)

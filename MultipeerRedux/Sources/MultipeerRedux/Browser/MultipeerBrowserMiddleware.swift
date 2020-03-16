@@ -21,7 +21,7 @@ public final class MultipeerBrowserMiddleware: Middleware {
         browser: @escaping () -> MultipeerBrowserPublisher,
         session: @escaping () -> MultipeerSession,
         autoInvite: MultipeerBrowserAutoInvite = .always,
-        timeout: TimeInterval = 20
+        timeout: TimeInterval = 10
     ) {
         self.browser = browser
         self.session = session()
@@ -83,13 +83,13 @@ public final class MultipeerBrowserMiddleware: Middleware {
             receiveValue: { [weak self] event in
                 guard let self = self else { return }
                 switch event {
-                case let .foundPeer(peerID, info, browser):
-                    self.output?.dispatch(.foundPeer(Peer(peerInstance: peerID), info: info, browser: browser))
-                    if self.autoInvite.shouldInviteAutomatically(peerID: peerID, info: info) {
-                        self.invite(peer: peerID, browser: browser)
+                case let .foundPeer(peer, info, browser):
+                    self.output?.dispatch(.foundPeer(Peer(peerInstance: peer), info: info, browser: browser))
+                    if self.autoInvite.shouldInviteAutomatically(peerID: peer, info: info) {
+                        self.invite(peer: peer, browser: browser)
                     }
-                case let .lostPeer(peerID):
-                    self.output?.dispatch(.lostPeer(Peer(peerInstance: peerID)))
+                case let .lostPeer(peer):
+                    self.output?.dispatch(.lostPeer(Peer(peerInstance: peer)))
                 }
             }
         )

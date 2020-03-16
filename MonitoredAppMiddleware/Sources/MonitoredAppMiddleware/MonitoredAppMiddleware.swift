@@ -22,9 +22,13 @@ public final class MonitoredAppMiddleware<Action, State>: Middleware {
         advertiser: (() -> MultipeerAdvertiserPublisher)? = nil,
         encoder: @escaping () -> JSONEncoder = JSONEncoder.init
     ) {
-        let peer = MCPeerID(displayName: "\(UUID().uuidString)")
-        self.session = multipeerSession?() ?? .init(myselfAsPeer: peer)
-        self.advertiser = advertiser ?? { .init(myselfAsPeer: peer, serviceType: "swiftrex") }
+        let bundle = Bundle.main
+        let serviceType = "swiftrex-mon"
+        let name = bundle.infoDictionary?["CFBundleName"] as? String ?? ""
+        let myselfAsPeer = MCPeerID(displayName: name)
+
+        self.session = multipeerSession?() ?? .init(myselfAsPeer: myselfAsPeer)
+        self.advertiser = advertiser ?? { .init(myselfAsPeer: myselfAsPeer, serviceType: serviceType) }
         self.encoder = encoder
     }
 

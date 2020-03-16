@@ -22,6 +22,7 @@
 
 /* Begin PBXBuildFile section */
 		D630822F241DA24F0025C33C /* MultipeerRedux in Frameworks */ = {isa = PBXBuildFile; productRef = D630822E241DA24F0025C33C /* MultipeerRedux */; };
+		D6414F5D241EFC84004F4A9F /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6414F5C241EFC84004F4A9F /* MultipeerConnectivity.framework */; };
 		D64C382F241D6705008D470F /* TypeErase.generated.abstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C382D241D6704008D470F /* TypeErase.generated.abstract.swift */; };
 		D64C3831241D677D008D470F /* EnumCodable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C3830241D677C008D470F /* EnumCodable.generated.swift */; };
 		D64C3833241D67C1008D470F /* Prism.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C3832241D67C1008D470F /* Prism.generated.swift */; };
@@ -52,6 +53,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D6414F5C241EFC84004F4A9F /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		D64C382C241D6704008D470F /* AutoMockable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		D64C382D241D6704008D470F /* TypeErase.generated.abstract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeErase.generated.abstract.swift; sourceTree = "<group>"; };
 		D64C3830241D677C008D470F /* EnumCodable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCodable.generated.swift; sourceTree = "<group>"; };
@@ -90,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6414F5D241EFC84004F4A9F /* MultipeerConnectivity.framework in Frameworks */,
 				D64C3843241D9B9D008D470F /* MultipeerCombine in Frameworks */,
 				D630822F241DA24F0025C33C /* MultipeerRedux in Frameworks */,
 				D658A7C1241DEE280093EEA1 /* MonitoredAppMiddleware in Frameworks */,
@@ -114,6 +117,7 @@
 		D64C3841241D9B9D008D470F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D6414F5C241EFC84004F4A9F /* MultipeerConnectivity.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
