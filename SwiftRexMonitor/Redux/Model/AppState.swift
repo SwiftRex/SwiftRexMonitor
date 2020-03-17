@@ -1,5 +1,5 @@
 import Foundation
-import MultipeerRedux
+import MultipeerMiddleware
 
 public struct AppState: Encodable, Equatable {
     public var multipeer: MultipeerState

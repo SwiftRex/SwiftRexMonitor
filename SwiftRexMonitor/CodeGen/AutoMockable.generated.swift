@@ -12,5 +12,5 @@ import AppKit
 
 import MonitoredAppMiddleware
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 

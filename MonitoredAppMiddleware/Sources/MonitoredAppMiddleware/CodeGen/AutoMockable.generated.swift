@@ -11,5 +11,5 @@ import AppKit
 #endif
 
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 

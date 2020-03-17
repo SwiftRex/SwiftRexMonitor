@@ -4,7 +4,7 @@
 
 import MonitoredAppMiddleware
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 extension AppAction: Encodable {
     enum CodingKeys: String, CodingKey {
         case type

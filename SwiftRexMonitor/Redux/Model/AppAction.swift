@@ -1,5 +1,5 @@
 import Foundation
-import MultipeerRedux
+import MultipeerMiddleware
 
 // sourcery: EnumCodable=EncodeOnly
 // sourcery: Prism

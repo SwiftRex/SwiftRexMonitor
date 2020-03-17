@@ -3,7 +3,7 @@
 
 
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 extension MessageType: Codable {
     enum CodingKeys: String, CodingKey {
         case type

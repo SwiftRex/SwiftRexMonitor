@@ -1,6 +1,6 @@
 import CombineRex
 import Foundation
-import MultipeerRedux
+import MultipeerMiddleware
 import SwiftRex
 
 private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, AppAction, AppState> in
@@ -68,7 +68,7 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
 }
 
 private let appReducer =
-    MultipeerRedux.multipeerBrowserReducer.lift(
+    MultipeerMiddleware.multipeerBrowserReducer.lift(
         actionGetter: \AppAction.multipeer?.browser,
         stateGetter: \AppState.multipeer.browser,
         stateSetter: setter(\AppState.multipeer.browser)

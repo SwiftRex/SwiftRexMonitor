@@ -4,7 +4,7 @@
 
 import MonitoredAppMiddleware
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 extension AppAction {
     public var start: Void? {
         get {

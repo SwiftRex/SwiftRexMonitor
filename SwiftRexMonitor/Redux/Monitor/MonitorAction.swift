@@ -1,6 +1,6 @@
 import Foundation
 import MonitoredAppMiddleware
-import MultipeerRedux
+import MultipeerMiddleware
 
 // sourcery: EnumCodable
 // sourcery: Prism

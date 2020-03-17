@@ -3,5 +3,5 @@
 
 
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 

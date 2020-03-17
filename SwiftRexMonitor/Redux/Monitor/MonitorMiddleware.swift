@@ -2,7 +2,7 @@ import Combine
 import Foundation
 import MonitoredAppMiddleware
 import MultipeerCombine
-import MultipeerRedux
+import MultipeerMiddleware
 import SwiftRex
 
 public final class MultipeerBridgeMonitorMiddleware: Middleware {

@@ -2,7 +2,7 @@
 // DO NOT EDIT
 
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 @inline(never)
 private func _abstract(file: StaticString = #file, line: UInt = #line) -> Never {
     fatalError("Method must be overridden", file: file, line: line)

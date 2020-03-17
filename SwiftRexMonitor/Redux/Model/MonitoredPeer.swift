@@ -1,6 +1,6 @@
 import Foundation
 import MonitoredAppMiddleware
-import MultipeerRedux
+import MultipeerMiddleware
 
 public struct MonitoredPeer: Codable, Equatable {
     public var peer: Peer

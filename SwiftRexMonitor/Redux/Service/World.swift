@@ -1,7 +1,7 @@
 import Foundation
 import MultipeerCombine
 import MultipeerConnectivity
-import MultipeerRedux
+import MultipeerMiddleware
 import SwiftRex
 
 public struct World {

@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "MultipeerMiddleware",
+        "repositoryURL": "https://github.com/SwiftRex/MultipeerMiddleware.git",
+        "state": {
+          "branch": "master",
+          "revision": "569ebc3fa4e4a6aa0f2fd467c82e1af317aca59e",
+          "version": null
+        }
+      },
+      {
         "package": "CasePaths",
         "repositoryURL": "https://github.com/pointfreeco/swift-case-paths",
         "state": {
