@@ -59,6 +59,7 @@ extension AppState {
 }
 
 import CasePaths
+import LoggerMiddleware
 import MonitoredAppMiddleware
 
 let appReducer: Reducer<AppAction, AppState> =
@@ -74,11 +75,16 @@ let appReducer: Reducer<AppAction, AppState> =
     )
 
 let appMiddleware: ComposedMiddleware<AppAction, AppAction, AppState> =
-    LoggerMiddleware().lift(
-        inputActionMap: { $0 },
-        outputActionMap: absurd,
-        stateMap: { $0 }
-    )
+    
+    LoggerMiddleware
+        .init(
+            actionTransform: { "\n🕹 \($0)\n🎪 \($1.file.split(separator: "/").last ?? ""):\($1.line) \($1.function)" },
+            stateDiffPrinter: { print("\($0 ?? "🏛 No state changes")") }
+        ).lift(
+            inputActionMap: { $0 },
+            outputActionMap: absurd,
+            stateMap: { $0 }
+        )
 
     <> MonitoredAppMiddleware<AppAction, AppState>()
 

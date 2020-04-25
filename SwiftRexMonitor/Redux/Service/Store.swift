@@ -1,5 +1,6 @@
 import CombineRex
 import Foundation
+import LoggerMiddleware
 import MultipeerMiddleware
 import SwiftRex
 
@@ -9,7 +10,9 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
 
     return
         LoggerMiddleware
-            .init()
+            .init(
+                actionTransform: { "\n🕹 \($0)\n🎪 \($1.file.split(separator: "/").last ?? ""):\($1.line) \($1.function)" },
+                stateDiffPrinter: { print("\($0 ?? "🏛 No state changes")") })
             .lift(
                 inputActionMap: identity,
                 outputActionMap: absurd,

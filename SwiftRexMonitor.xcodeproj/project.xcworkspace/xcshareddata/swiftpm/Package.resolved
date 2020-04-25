@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "LoggerMiddleware",
+        "repositoryURL": "https://github.com/SwiftRex/LoggerMiddleware.git",
+        "state": {
+          "branch": "master",
+          "revision": "8b8a9e30a5fc39f320a5d42becfc987c29e961c2",
+          "version": null
+        }
+      },
+      {
         "package": "MultipeerMiddleware",
         "repositoryURL": "https://github.com/SwiftRex/MultipeerMiddleware.git",
         "state": {

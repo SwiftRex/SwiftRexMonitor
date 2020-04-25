@@ -32,7 +32,8 @@
 		D658A7C1241DEE280093EEA1 /* MonitoredAppMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D658A7C0241DEE280093EEA1 /* MonitoredAppMiddleware */; };
 		D66BF723242181A3001AB807 /* MultipeerCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D66BF722242181A3001AB807 /* MultipeerCombine */; };
 		D66BF725242181A3001AB807 /* MultipeerMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D66BF724242181A3001AB807 /* MultipeerMiddleware */; };
-		D69218D8241DE32200A888D4 /* LoggerMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69218D7241DE32200A888D4 /* LoggerMiddleware.swift */; };
+		D69995EE2453C4A50001A57E /* CombineRex in Frameworks */ = {isa = PBXBuildFile; productRef = D69995ED2453C4A50001A57E /* CombineRex */; };
+		D69995F12453C6FD0001A57E /* LoggerMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D69995F02453C6FD0001A57E /* LoggerMiddleware */; };
 		D69ED03323EB8602002C1FDB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED03223EB8602002C1FDB /* AppDelegate.swift */; };
 		D69ED03523EB8602002C1FDB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69ED03423EB8602002C1FDB /* ContentView.swift */; };
 		D69ED03723EB8603002C1FDB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D69ED03623EB8603002C1FDB /* Assets.xcassets */; };
@@ -46,7 +47,6 @@
 		D6B6A618241DB0BB00AF74CA /* MonitorReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A617241DB0BB00AF74CA /* MonitorReducer.swift */; };
 		D6B6A61A241DB82300AF74CA /* Result+Prism.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A619241DB82300AF74CA /* Result+Prism.swift */; };
 		D6B6A626241DC51000AF74CA /* MonitoredPeer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6B6A625241DC51000AF74CA /* MonitoredPeer.swift */; };
-		D6C7C536241C0B93000F89EF /* CombineRex in Frameworks */ = {isa = PBXBuildFile; productRef = D6C7C535241C0B93000F89EF /* CombineRex */; };
 		D6C7C538241C10A5000F89EF /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C7C537241C10A5000F89EF /* Store.swift */; };
 		D6C7C53A241C1106000F89EF /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C7C539241C1106000F89EF /* AppState.swift */; };
 		D6C7C53C241C115F000F89EF /* AppAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C7C53B241C115F000F89EF /* AppAction.swift */; };
@@ -63,7 +63,6 @@
 		D64C383C241D822C008D470F /* FPUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPUtils.swift; sourceTree = "<group>"; };
 		D64C383E241D824E008D470F /* Function+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Function+Zip.swift"; sourceTree = "<group>"; };
 		D658A7BF241DEBC00093EEA1 /* MonitoredAppMiddleware */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MonitoredAppMiddleware; sourceTree = "<group>"; };
-		D69218D7241DE32200A888D4 /* LoggerMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMiddleware.swift; sourceTree = "<group>"; };
 		D69ED02F23EB8602002C1FDB /* SwiftRexMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRexMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D69ED03223EB8602002C1FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D69ED03423EB8602002C1FDB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,8 +92,9 @@
 				D66BF723242181A3001AB807 /* MultipeerCombine in Frameworks */,
 				D6414F5D241EFC84004F4A9F /* MultipeerConnectivity.framework in Frameworks */,
 				D658A7C1241DEE280093EEA1 /* MonitoredAppMiddleware in Frameworks */,
+				D69995EE2453C4A50001A57E /* CombineRex in Frameworks */,
+				D69995F12453C6FD0001A57E /* LoggerMiddleware in Frameworks */,
 				D66BF725242181A3001AB807 /* MultipeerMiddleware in Frameworks */,
-				D6C7C536241C0B93000F89EF /* CombineRex in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,14 +118,6 @@
 				D6414F5C241EFC84004F4A9F /* MultipeerConnectivity.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		D69218D6241DE27900A888D4 /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-				D69218D7241DE32200A888D4 /* LoggerMiddleware.swift */,
-			);
-			path = Logger;
 			sourceTree = "<group>";
 		};
 		D69ED02623EB8602002C1FDB = {
@@ -214,7 +206,6 @@
 		D6B6A60F241DA71D00AF74CA /* Redux */ = {
 			isa = PBXGroup;
 			children = (
-				D69218D6241DE27900A888D4 /* Logger */,
 				D6B6A610241DA75B00AF74CA /* Monitor */,
 				D69ED04C23EB8B7F002C1FDB /* Model */,
 				D6D2376F241D163300625CF0 /* Service */,
@@ -259,10 +250,11 @@
 			);
 			name = SwiftRexMonitor;
 			packageProductDependencies = (
-				D6C7C535241C0B93000F89EF /* CombineRex */,
 				D658A7C0241DEE280093EEA1 /* MonitoredAppMiddleware */,
 				D66BF722242181A3001AB807 /* MultipeerCombine */,
 				D66BF724242181A3001AB807 /* MultipeerMiddleware */,
+				D69995ED2453C4A50001A57E /* CombineRex */,
+				D69995F02453C6FD0001A57E /* LoggerMiddleware */,
 			);
 			productName = SwiftRexMonitor;
 			productReference = D69ED02F23EB8602002C1FDB /* SwiftRexMonitor.app */;
@@ -296,8 +288,9 @@
 			);
 			mainGroup = D69ED02623EB8602002C1FDB;
 			packageReferences = (
-				D6C7C534241C0B93000F89EF /* XCRemoteSwiftPackageReference "SwiftRex" */,
 				D66BF721242180E8001AB807 /* XCRemoteSwiftPackageReference "MultipeerMiddleware" */,
+				D69995EC2453C4A50001A57E /* XCRemoteSwiftPackageReference "SwiftRex" */,
+				D69995EF2453C6FD0001A57E /* XCRemoteSwiftPackageReference "LoggerMiddleware" */,
 			);
 			productRefGroup = D69ED03023EB8602002C1FDB /* Products */;
 			projectDirPath = "";
@@ -369,7 +362,6 @@
 				D69ED04723EB8B1E002C1FDB /* Collection.swift in Sources */,
 				D6C7C53A241C1106000F89EF /* AppState.swift in Sources */,
 				D64C383B241D7FFB008D470F /* Operators.swift in Sources */,
-				D69218D8241DE32200A888D4 /* LoggerMiddleware.swift in Sources */,
 				D64C383F241D824E008D470F /* Function+Zip.swift in Sources */,
 				D6C7C538241C10A5000F89EF /* Store.swift in Sources */,
 				D64C3839241D748A008D470F /* Result+Codable.swift in Sources */,
@@ -624,12 +616,20 @@
 				kind = branch;
 			};
 		};
-		D6C7C534241C0B93000F89EF /* XCRemoteSwiftPackageReference "SwiftRex" */ = {
+		D69995EC2453C4A50001A57E /* XCRemoteSwiftPackageReference "SwiftRex" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftRex/SwiftRex.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.7.0;
+			};
+		};
+		D69995EF2453C6FD0001A57E /* XCRemoteSwiftPackageReference "LoggerMiddleware" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftRex/LoggerMiddleware.git";
+			requirement = {
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -649,10 +649,15 @@
 			package = D66BF721242180E8001AB807 /* XCRemoteSwiftPackageReference "MultipeerMiddleware" */;
 			productName = MultipeerMiddleware;
 		};
-		D6C7C535241C0B93000F89EF /* CombineRex */ = {
+		D69995ED2453C4A50001A57E /* CombineRex */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D6C7C534241C0B93000F89EF /* XCRemoteSwiftPackageReference "SwiftRex" */;
+			package = D69995EC2453C4A50001A57E /* XCRemoteSwiftPackageReference "SwiftRex" */;
 			productName = CombineRex;
+		};
+		D69995F02453C6FD0001A57E /* LoggerMiddleware */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D69995EF2453C6FD0001A57E /* XCRemoteSwiftPackageReference "LoggerMiddleware" */;
+			productName = LoggerMiddleware;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

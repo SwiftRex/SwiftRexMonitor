@@ -14,16 +14,16 @@
 		D61DB92B241E8CBC007F6A6D /* MonitoredAppMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D61DB92A241E8CBC007F6A6D /* MonitoredAppMiddleware */; };
 		D6366925241E6ACA00E5E8D7 /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = D6366923241E6ACA00E5E8D7 /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D636692A241E6AD600E5E8D7 /* CasePaths in Frameworks */ = {isa = PBXBuildFile; productRef = D6366929241E6AD600E5E8D7 /* CasePaths */; };
-		D636692C241E6AD600E5E8D7 /* CombineRex in Frameworks */ = {isa = PBXBuildFile; productRef = D636692B241E6AD600E5E8D7 /* CombineRex */; };
 		D636692E241E6B0000E5E8D7 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D636692D241E6B0000E5E8D7 /* Extensions.swift */; };
 		D636692F241E6BA800E5E8D7 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6366921241E6ACA00E5E8D7 /* Utils.framework */; };
 		D6366934241E6BB100E5E8D7 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6366921241E6ACA00E5E8D7 /* Utils.framework */; };
 		D6366939241E6BB900E5E8D7 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6366921241E6ACA00E5E8D7 /* Utils.framework */; };
 		D636693E241E6BC600E5E8D7 /* Utils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6366921241E6ACA00E5E8D7 /* Utils.framework */; };
 		D636693F241E6BC600E5E8D7 /* Utils.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = D6366921241E6ACA00E5E8D7 /* Utils.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		D6366943241E863500E5E8D7 /* LoggerMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6366942241E863500E5E8D7 /* LoggerMiddleware.swift */; };
 		D6366945241E876500E5E8D7 /* ActivityFeedReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6366944241E876500E5E8D7 /* ActivityFeedReducer.swift */; };
 		D6414F5B241EFC71004F4A9F /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6414F5A241EFC71004F4A9F /* MultipeerConnectivity.framework */; };
+		D6D37AFC2453D371004CA630 /* CombineRex in Frameworks */ = {isa = PBXBuildFile; productRef = D6D37AFB2453D371004CA630 /* CombineRex */; };
+		D6D37AFE2453D39C004CA630 /* LoggerMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D6D37AFD2453D39C004CA630 /* LoggerMiddleware */; };
 		D6F01E48241E5CC8006D1C70 /* CasePaths in Frameworks */ = {isa = PBXBuildFile; productRef = D6F01E47241E5CC8006D1C70 /* CasePaths */; };
 		DC90717022FA102900B38B42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90716F22FA102900B38B42 /* AppDelegate.swift */; };
 		DC90717222FA102900B38B42 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC90717122FA102900B38B42 /* SceneDelegate.swift */; };
@@ -187,7 +187,6 @@
 		D6366923241E6ACA00E5E8D7 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		D6366924241E6ACA00E5E8D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D636692D241E6B0000E5E8D7 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		D6366942241E863500E5E8D7 /* LoggerMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerMiddleware.swift; sourceTree = "<group>"; };
 		D6366944241E876500E5E8D7 /* ActivityFeedReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityFeedReducer.swift; sourceTree = "<group>"; };
 		D6414F5A241EFC71004F4A9F /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		DC29217322FB231F006090DF /* WolframAlpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WolframAlpha.swift; sourceTree = "<group>"; };
@@ -239,8 +238,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D636692C241E6AD600E5E8D7 /* CombineRex in Frameworks */,
 				D61DB92B241E8CBC007F6A6D /* MonitoredAppMiddleware in Frameworks */,
+				D6D37AFC2453D371004CA630 /* CombineRex in Frameworks */,
+				D6D37AFE2453D39C004CA630 /* LoggerMiddleware in Frameworks */,
 				D636692A241E6AD600E5E8D7 /* CasePaths in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -390,7 +390,6 @@
 				DC90717322FA102900B38B42 /* ContentView.swift */,
 				DC90717D22FA102A00B38B42 /* Info.plist */,
 				DC90717A22FA102A00B38B42 /* LaunchScreen.storyboard */,
-				D6366942241E863500E5E8D7 /* LoggerMiddleware.swift */,
 				DC90717122FA102900B38B42 /* SceneDelegate.swift */,
 				DC90719122FA151D00B38B42 /* Util.swift */,
 			);
@@ -545,8 +544,9 @@
 			name = Utils;
 			packageProductDependencies = (
 				D6366929241E6AD600E5E8D7 /* CasePaths */,
-				D636692B241E6AD600E5E8D7 /* CombineRex */,
 				D61DB92A241E8CBC007F6A6D /* MonitoredAppMiddleware */,
+				D6D37AFB2453D371004CA630 /* CombineRex */,
+				D6D37AFD2453D39C004CA630 /* LoggerMiddleware */,
 			);
 			productName = Utils;
 			productReference = D6366921241E6ACA00E5E8D7 /* Utils.framework */;
@@ -781,7 +781,8 @@
 			packageReferences = (
 				CA79FC26239C158C0096D881 /* XCRemoteSwiftPackageReference "swift-snapshot-testing" */,
 				CADB167123DCC4A30052C18C /* XCRemoteSwiftPackageReference "swift-case-paths" */,
-				D6C773D6241E547700E8CB2D /* XCRemoteSwiftPackageReference "SwiftRex" */,
+				D6D37AF12453D2E5004CA630 /* XCRemoteSwiftPackageReference "LoggerMiddleware" */,
+				D6D37AF42453D33E004CA630 /* XCRemoteSwiftPackageReference "SwiftRex" */,
 			);
 			productRefGroup = DC90716D22FA102900B38B42 /* Products */;
 			projectDirPath = "";
@@ -900,7 +901,6 @@
 			files = (
 				D6366945241E876500E5E8D7 /* ActivityFeedReducer.swift in Sources */,
 				DC90717022FA102900B38B42 /* AppDelegate.swift in Sources */,
-				D6366943241E863500E5E8D7 /* LoggerMiddleware.swift in Sources */,
 				DC90717222FA102900B38B42 /* SceneDelegate.swift in Sources */,
 				DC90717422FA102900B38B42 /* ContentView.swift in Sources */,
 				DC90719222FA151D00B38B42 /* Util.swift in Sources */,
@@ -1744,7 +1744,15 @@
 				minimumVersion = 0.1.0;
 			};
 		};
-		D6C773D6241E547700E8CB2D /* XCRemoteSwiftPackageReference "SwiftRex" */ = {
+		D6D37AF12453D2E5004CA630 /* XCRemoteSwiftPackageReference "LoggerMiddleware" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftRex/LoggerMiddleware.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		D6D37AF42453D33E004CA630 /* XCRemoteSwiftPackageReference "SwiftRex" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SwiftRex/SwiftRex.git";
 			requirement = {
@@ -1769,10 +1777,15 @@
 			package = CADB167123DCC4A30052C18C /* XCRemoteSwiftPackageReference "swift-case-paths" */;
 			productName = CasePaths;
 		};
-		D636692B241E6AD600E5E8D7 /* CombineRex */ = {
+		D6D37AFB2453D371004CA630 /* CombineRex */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D6C773D6241E547700E8CB2D /* XCRemoteSwiftPackageReference "SwiftRex" */;
+			package = D6D37AF42453D33E004CA630 /* XCRemoteSwiftPackageReference "SwiftRex" */;
 			productName = CombineRex;
+		};
+		D6D37AFD2453D39C004CA630 /* LoggerMiddleware */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D6D37AF12453D2E5004CA630 /* XCRemoteSwiftPackageReference "LoggerMiddleware" */;
+			productName = LoggerMiddleware;
 		};
 		D6F01E47241E5CC8006D1C70 /* CasePaths */ = {
 			isa = XCSwiftPackageProductDependency;

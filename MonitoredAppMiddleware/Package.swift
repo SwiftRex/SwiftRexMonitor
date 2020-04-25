@@ -12,11 +12,10 @@ let package = Package(
         .library(name: "MonitoredAppMiddleware", targets: ["MonitoredAppMiddleware"])
     ],
     dependencies: [
-        .package(name: "CombineRex", url: "https://github.com/SwiftRex/SwiftRex.git", from: "0.7.0"),
         .package(name: "MultipeerMiddleware", url: "https://github.com/SwiftRex/MultipeerMiddleware.git", .branch("master"))
     ],
     targets: [
-        .target(name: "MonitoredAppMiddleware", dependencies: ["CombineRex", "MultipeerMiddleware"]),
+        .target(name: "MonitoredAppMiddleware", dependencies: ["MultipeerMiddleware"]),
         .testTarget(name: "MonitoredAppMiddlewareTests", dependencies: ["MonitoredAppMiddleware"])
     ]
 )
