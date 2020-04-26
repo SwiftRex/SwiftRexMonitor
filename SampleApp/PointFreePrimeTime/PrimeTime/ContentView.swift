@@ -75,7 +75,7 @@ let appReducer: Reducer<AppAction, AppState> =
     )
 
 let appMiddleware: ComposedMiddleware<AppAction, AppAction, AppState> =
-    
+
     LoggerMiddleware
         .init(
             actionTransform: { "\n🕹 \($0)\n🎪 \($1.file.split(separator: "/").last ?? ""):\($1.line) \($1.function)" },
