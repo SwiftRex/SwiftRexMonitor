@@ -5,7 +5,7 @@ import MultipeerConnectivity
 import MultipeerMiddleware
 import SwiftRex
 
-public final class MonitoredAppMiddleware<Action, State>: Middleware {
+public final class MonitoredAppMiddleware<Action, State: Encodable & Equatable>: Middleware {
     public typealias InputActionType = Action
     public typealias OutputActionType = Action
     public typealias StateType = State
@@ -20,7 +20,7 @@ public final class MonitoredAppMiddleware<Action, State>: Middleware {
     public init(
         multipeerSession: (() -> MultipeerSession)? = nil,
         advertiser: (() -> MultipeerAdvertiserPublisher)? = nil,
-        encoder: @escaping () -> JSONEncoder = JSONEncoder.init
+        encoder: @escaping () -> JSONEncoder = sortedOrderEncoder
     ) {
         let name = "\(appName()) 📱 \(deviceName())"
         let myselfAsPeer = MCPeerID(displayName: name)
@@ -52,8 +52,10 @@ public final class MonitoredAppMiddleware<Action, State>: Middleware {
     }
 
     public func handle(action: InputActionType, from dispatcher: ActionSource, afterReducer: inout AfterReducer) {
+        let oldState = getState?()
         afterReducer = .do {
-            self.sendAction(action: action, from: dispatcher)
+            let newState = self.getState?()
+            self.sendAction(action: action, from: dispatcher, changedState: oldState == newState ? nil : newState)
         }
     }
 
@@ -78,14 +80,13 @@ public final class MonitoredAppMiddleware<Action, State>: Middleware {
         )
     }
 
-    private func sendAction(action: InputActionType, from dispatcher: ActionSource) {
+    private func sendAction(action: InputActionType, from dispatcher: ActionSource, changedState: State?) {
         send(message:
             MessageType.action(
                 ActionMessage(
                     remoteDate: Date(),
                     action: "\(action)",
-                    actionPayload: .unkeyed(""),
-                    state: .unkeyed(""),
+                    state: changedState.flatMap { try? encoder().encode($0) },
                     actionSource: dispatcher
                 )
             )
@@ -98,6 +99,15 @@ public final class MonitoredAppMiddleware<Action, State>: Middleware {
             .flatMap({ session.sendToAll($0) }) {
             print("codable error \(error)")
         }
+    }
+}
+
+extension MonitoredAppMiddleware {
+    public static func sortedOrderEncoder() -> JSONEncoder {
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+        encoder.dateEncodingStrategy = .iso8601
+        return encoder
     }
 }
 

@@ -4,6 +4,7 @@
 import MonitoredAppMiddleware
 import MultipeerConnectivity
 import MultipeerMiddleware
+import SwiftRex
 @inline(never)
 private func _abstract(file: StaticString = #file, line: UInt = #line) -> Never {
     fatalError("Method must be overridden", file: file, line: line)

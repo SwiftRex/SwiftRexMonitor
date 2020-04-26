@@ -5,11 +5,13 @@ import MultipeerMiddleware
 import SwiftRex
 
 public struct World {
-    public let bundle: Bundle
     public let advertiserPublisher: (MCPeerID) -> MultipeerAdvertiserPublisher
     public let browserPublisher: (MCPeerID) -> MultipeerBrowserPublisher
-    public let myselfAsPeer: () -> MCPeerID
+    public let bundle: Bundle
+    public let decoder: () -> JSONDecoder
+    public let encoder: () -> JSONEncoder
     public let multipeerSession: () -> MultipeerSession
+    public let myselfAsPeer: () -> MCPeerID
     public let store: () -> AnyStoreType<AppAction, AppState>
 }
 
@@ -26,11 +28,22 @@ extension World {
         var storeInstance: AnyStoreType<AppAction, AppState>?
 
         return World(
-            bundle: bundle,
             advertiserPublisher: advertiser,
             browserPublisher: browser,
-            myselfAsPeer: { myselfAsPeer },
+            bundle: bundle,
+            decoder: {
+                let d = JSONDecoder()
+                d.dateDecodingStrategy = .iso8601
+                return d
+            },
+            encoder: {
+                let e = JSONEncoder()
+                e.dateEncodingStrategy = .iso8601
+                e.outputFormatting = [.sortedKeys, .withoutEscapingSlashes]
+                return e
+            },
             multipeerSession: { session },
+            myselfAsPeer: { myselfAsPeer },
             store: {
                 if let instance = storeInstance { return instance }
                 storeInstance = createStore(world: .live)

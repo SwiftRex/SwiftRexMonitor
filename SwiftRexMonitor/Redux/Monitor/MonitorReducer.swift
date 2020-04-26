@@ -31,12 +31,12 @@ let monitorReducer = Reducer<MonitorAction, [MonitoredPeer]> { action, state in
             peerInState.metadata = greetings
             return peerInState
         }
-    case let .gotAction(action, peer):
+    case let .gotAction(action, remoteDate, newState, actionSource, peer):
         return state.map {
             guard $0.peer.peerInstance.displayName == peer.peerInstance.displayName else { return $0 }
 
             var peerInState = $0
-            peerInState.history.append(action)
+            peerInState.history.append(.init(remoteDate: remoteDate, action: action, state: newState, actionSource: actionSource))
             return peerInState
         }
     }

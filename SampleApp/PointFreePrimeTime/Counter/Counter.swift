@@ -117,7 +117,7 @@ public let counterViewReducer: Reducer<CounterViewAction, CounterViewState> =
         stateSetter: setter(\CounterViewState.primeModal)
     )
 
-public struct PrimeAlert: Equatable, Identifiable {
+public struct PrimeAlert: Equatable, Identifiable, Encodable {
     let prime: Int
     public var id: Int { self.prime }
 }

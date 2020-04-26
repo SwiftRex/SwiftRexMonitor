@@ -6,7 +6,7 @@ import SwiftRex
 import SwiftUI
 import Utils
 
-struct AppState: Equatable {
+struct AppState: Equatable, Encodable {
     var count = 0
     var favoritePrimes: [Int] = []
     var loggedInUser: User?
@@ -15,17 +15,32 @@ struct AppState: Equatable {
     var isNthPrimeButtonDisabled: Bool = false
     var isPrimeModalShown: Bool = false
 
-    struct Activity: Equatable {
+    struct Activity: Equatable, Encodable {
         let timestamp: Date
         let type: ActivityType
 
-        enum ActivityType: Equatable {
+        enum ActivityType: Equatable, Encodable {
             case addedFavoritePrime(Int)
             case removedFavoritePrime(Int)
+
+            enum CodingKeys: String, CodingKey {
+                case addedFavoritePrime
+                case removedFavoritePrime
+            }
+
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                switch self {
+                case let .addedFavoritePrime(addedFavoritePrime):
+                    try container.encode(addedFavoritePrime, forKey: .addedFavoritePrime)
+                case let .removedFavoritePrime(removedFavoritePrime):
+                    try container.encode(removedFavoritePrime, forKey: .removedFavoritePrime)
+                }
+            }
         }
     }
 
-    struct User: Equatable {
+    struct User: Equatable, Encodable {
         let id: Int
         let name: String
         let bio: String

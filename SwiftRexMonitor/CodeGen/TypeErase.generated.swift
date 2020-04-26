@@ -5,4 +5,5 @@
 import MonitoredAppMiddleware
 import MultipeerConnectivity
 import MultipeerMiddleware
+import SwiftRex
 

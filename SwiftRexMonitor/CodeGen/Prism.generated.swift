@@ -5,6 +5,7 @@
 import MonitoredAppMiddleware
 import MultipeerConnectivity
 import MultipeerMiddleware
+import SwiftRex
 extension AppAction {
     public var start: Void? {
         get {
@@ -101,14 +102,14 @@ extension MonitorAction {
         self.evaluateData != nil
     }
 
-    public var gotAction: (ActionMessage, peer: Peer)? {
+    public var gotAction: (action: String, remoteDate: Date, state: String?, actionSource: ActionSource, peer: Peer)? {
         get {
-            guard case let .gotAction(associatedValue0, peer) = self else { return nil }
-            return (associatedValue0, peer)
+            guard case let .gotAction(action, remoteDate, state, actionSource, peer) = self else { return nil }
+            return (action, remoteDate, state, actionSource, peer)
         }
         set {
             guard case .gotAction = self, let newValue = newValue else { return }
-            self = .gotAction(newValue.0, peer: newValue.1)
+            self = .gotAction(action: newValue.0, remoteDate: newValue.1, state: newValue.2, actionSource: newValue.3, peer: newValue.4)
         }
     }
 

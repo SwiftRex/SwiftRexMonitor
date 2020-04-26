@@ -101,8 +101,16 @@ public final class MonitorMiddleware: Middleware {
 
         guard let decodedMessage = Result(catching: { try decoder().decode(MessageType.self, from: data) }).success else { return }
         switch decodedMessage {
-        case let .action(action):
-            output?.dispatch(.gotAction(action, peer: peer))
+        case let .action(message):
+            output?.dispatch(
+                .gotAction(
+                    action: message.action,
+                    remoteDate: message.remoteDate,
+                    state: message.state.flatMap { String(data: $0, encoding: .utf8) },
+                    actionSource: message.actionSource,
+                    peer: peer
+                )
+            )
         case let .introduction(introduction):
             output?.dispatch(.gotGreetings(introduction, peer: peer))
         }

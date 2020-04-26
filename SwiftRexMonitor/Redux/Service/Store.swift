@@ -29,7 +29,7 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
         <> MonitorMiddleware
             .init(
                 multipeerSession: session,
-                decoder: JSONDecoder.init
+                decoder: world.decoder
             )
             .lift(
                 inputActionMap: \AppAction.monitor,
