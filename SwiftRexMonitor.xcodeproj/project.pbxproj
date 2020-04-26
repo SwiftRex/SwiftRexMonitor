@@ -65,6 +65,7 @@
 		D64C383C241D822C008D470F /* FPUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPUtils.swift; sourceTree = "<group>"; };
 		D64C383E241D824E008D470F /* Function+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Function+Zip.swift"; sourceTree = "<group>"; };
 		D658A7BF241DEBC00093EEA1 /* MonitoredAppMiddleware */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MonitoredAppMiddleware; sourceTree = "<group>"; };
+		D698B165245616DD000A1566 /* SwiftRexMonitorEngine */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftRexMonitorEngine; sourceTree = "<group>"; };
 		D69ED02F23EB8602002C1FDB /* SwiftRexMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRexMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D69ED03223EB8602002C1FDB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D69ED03423EB8602002C1FDB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 			isa = PBXGroup;
 			children = (
 				D658A7BF241DEBC00093EEA1 /* MonitoredAppMiddleware */,
+				D698B165245616DD000A1566 /* SwiftRexMonitorEngine */,
 				D69ED03123EB8602002C1FDB /* SwiftRexMonitor */,
 				D69ED03023EB8602002C1FDB /* Products */,
 				D64C3841241D9B9D008D470F /* Frameworks */,
