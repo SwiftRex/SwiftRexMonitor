@@ -81,7 +81,7 @@ extension MonitorAction: Codable {
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.GotActionKeys.self, forKey: .associatedValues)
             let associatedValues0 = try subContainer.decode(String.self, forKey: .action)
             let associatedValues1 = try subContainer.decode(Date.self, forKey: .remoteDate)
-            let associatedValues2 = try subContainer.decode(String?.self, forKey: .state)
+            let associatedValues2 = try subContainer.decode(GenericObject?.self, forKey: .state)
             let associatedValues3 = try subContainer.decode(ActionSource.self, forKey: .actionSource)
             let associatedValues4 = try subContainer.decode(Peer.self, forKey: .peer)
             self = .gotAction(action: associatedValues0, remoteDate: associatedValues1, state: associatedValues2, actionSource: associatedValues3, peer: associatedValues4)

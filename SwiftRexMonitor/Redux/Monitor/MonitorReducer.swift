@@ -36,7 +36,7 @@ let monitorReducer = Reducer<MonitorAction, [MonitoredPeer]> { action, state in
             guard $0.peer.peerInstance.displayName == peer.peerInstance.displayName else { return $0 }
 
             var peerInState = $0
-            peerInState.history.append(.init(remoteDate: remoteDate, action: action, state: newState, actionSource: actionSource))
+            peerInState.history.append(.init(id: UUID(), remoteDate: remoteDate, action: action, state: newState, actionSource: actionSource))
             return peerInState
         }
     }

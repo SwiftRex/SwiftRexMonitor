@@ -102,7 +102,7 @@ extension MonitorAction {
         self.evaluateData != nil
     }
 
-    public var gotAction: (action: String, remoteDate: Date, state: String?, actionSource: ActionSource, peer: Peer)? {
+    public var gotAction: (action: String, remoteDate: Date, state: GenericObject?, actionSource: ActionSource, peer: Peer)? {
         get {
             guard case let .gotAction(action, remoteDate, state, actionSource, peer) = self else { return nil }
             return (action, remoteDate, state, actionSource, peer)

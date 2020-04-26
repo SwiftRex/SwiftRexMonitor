@@ -106,7 +106,13 @@ public final class MonitorMiddleware: Middleware {
                 .gotAction(
                     action: message.action,
                     remoteDate: message.remoteDate,
-                    state: message.state.flatMap { String(data: $0, encoding: .utf8) },
+                    state: message.state.map {
+                        do {
+                            return try decoder().decode(GenericObject.self, from: $0)
+                        } catch {
+                            return .string("Decoding error: \(error.localizedDescription)")
+                        }
+                    },
                     actionSource: message.actionSource,
                     peer: peer
                 )

@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		D62B0F712455FB4800247D7F /* ActionHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62B0F702455FB4800247D7F /* ActionHistoryEntry.swift */; };
 		D6414F5D241EFC84004F4A9F /* MultipeerConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6414F5C241EFC84004F4A9F /* MultipeerConnectivity.framework */; };
 		D64C382F241D6705008D470F /* TypeErase.generated.abstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C382D241D6704008D470F /* TypeErase.generated.abstract.swift */; };
 		D64C3831241D677D008D470F /* EnumCodable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C3830241D677C008D470F /* EnumCodable.generated.swift */; };
@@ -53,6 +54,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D62B0F702455FB4800247D7F /* ActionHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionHistoryEntry.swift; sourceTree = "<group>"; };
 		D6414F5C241EFC84004F4A9F /* MultipeerConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MultipeerConnectivity.framework; path = System/Library/Frameworks/MultipeerConnectivity.framework; sourceTree = SDKROOT; };
 		D64C382C241D6704008D470F /* AutoMockable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoMockable.generated.swift; sourceTree = "<group>"; };
 		D64C382D241D6704008D470F /* TypeErase.generated.abstract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeErase.generated.abstract.swift; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		D69ED04C23EB8B7F002C1FDB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D62B0F702455FB4800247D7F /* ActionHistoryEntry.swift */,
 				D6C7C53B241C115F000F89EF /* AppAction.swift */,
 				D6C7C539241C1106000F89EF /* AppState.swift */,
 				D6B6A625241DC51000AF74CA /* MonitoredPeer.swift */,
@@ -359,6 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D62B0F712455FB4800247D7F /* ActionHistoryEntry.swift in Sources */,
 				D69ED04723EB8B1E002C1FDB /* Collection.swift in Sources */,
 				D6C7C53A241C1106000F89EF /* AppState.swift in Sources */,
 				D64C383B241D7FFB008D470F /* Operators.swift in Sources */,
