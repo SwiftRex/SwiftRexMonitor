@@ -10,9 +10,8 @@ import UIKit
 import AppKit
 #endif
 
+import Foundation
 import MonitoredAppMiddleware
-import MultipeerConnectivity
 import MultipeerMiddleware
 import SwiftRex
-import SwiftRexMonitorEngine
 

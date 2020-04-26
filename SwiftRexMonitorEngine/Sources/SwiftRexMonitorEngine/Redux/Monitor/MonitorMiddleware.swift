@@ -5,48 +5,10 @@ import MultipeerCombine
 import MultipeerMiddleware
 import SwiftRex
 
-public final class MultipeerBridgeMonitorMiddleware: Middleware {
-    public typealias InputActionType = AppAction
-    public typealias OutputActionType = AppAction
-    public typealias StateType = Void
-
-    private var output: AnyActionHandler<OutputActionType>?
-    private var getState: GetState<StateType>?
-    private var cancellables = Set<AnyCancellable>()
-
-    public init() {
-    }
-
-    public func receiveContext(getState: @escaping GetState<StateType>, output: AnyActionHandler<OutputActionType>) {
-        self.getState = getState
-        self.output = output
-    }
-
-    public func handle(action: InputActionType, from dispatcher: ActionSource, afterReducer: inout AfterReducer) {
-        switch action {
-        case .start:
-            start()
-        case .multipeer(.connectivity(.peerConnected)), .multipeer(.connectivity(.peerDisconnected)):
-            output?.dispatch(.monitor(.peerListNeedsRefresh))
-        case let .multipeer(.messaging(.gotData(data, peer))):
-            output?.dispatch(.monitor(.evaluateData(data, from: peer)))
-        default:
-            break
-        }
-    }
-
-    private func start() {
-        output?.dispatch(.monitor(.start))
-        output?.dispatch(.multipeer(.connectivity(.startMonitoring)))
-        output?.dispatch(.multipeer(.messaging(.startMonitoring)))
-        output?.dispatch(.multipeer(.browser(.startBrowsing)))
-    }
-}
-
-public final class MonitorMiddleware: Middleware {
-    public typealias InputActionType = MonitorAction
-    public typealias OutputActionType = MonitorAction
-    public typealias StateType = [MonitoredPeer]
+final class MonitorMiddleware: Middleware {
+    typealias InputActionType = MonitorAction
+    typealias OutputActionType = MonitorAction
+    typealias StateType = [MonitoredPeer]
 
     private let session: () -> MultipeerSession
     private let decoder: () -> JSONDecoder
@@ -54,20 +16,17 @@ public final class MonitorMiddleware: Middleware {
     private var getState: GetState<StateType>?
     private var cancellables = Set<AnyCancellable>()
 
-    public init(
-        multipeerSession: @escaping () -> MultipeerSession,
-        decoder: @escaping () -> JSONDecoder
-    ) {
+    init(multipeerSession: @escaping () -> MultipeerSession, decoder: @escaping () -> JSONDecoder) {
         self.session = multipeerSession
         self.decoder = decoder
     }
 
-    public func receiveContext(getState: @escaping GetState<StateType>, output: AnyActionHandler<OutputActionType>) {
+    func receiveContext(getState: @escaping GetState<StateType>, output: AnyActionHandler<OutputActionType>) {
         self.getState = getState
         self.output = output
     }
 
-    public func handle(action: InputActionType, from dispatcher: ActionSource, afterReducer: inout AfterReducer) {
+    func handle(action: InputActionType, from dispatcher: ActionSource, afterReducer: inout AfterReducer) {
         switch action {
         case .start:
             start()

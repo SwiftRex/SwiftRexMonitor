@@ -3,12 +3,13 @@ import Foundation
 import LoggerMiddleware
 import MultipeerMiddleware
 import SwiftRex
+import SwiftRexMonitorEngine
 
 private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, AppAction, AppState> in
     let peer = world.myselfAsPeer()
     let session = world.multipeerSession
 
-    return
+    return [
         LoggerMiddleware
             .init(
                 actionTransform: { "\n🕹 \($0)\n🎪 \($1.file.split(separator: "/").last ?? ""):\($1.line) \($1.function)" },
@@ -18,76 +19,31 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
                 outputActionMap: absurd,
                 stateMap: identity
             )
+            .eraseToAnyMiddleware(),
 
-        <> MultipeerBridgeMonitorMiddleware()
+        SwiftRexMonitorEngine
+            .middleware(multipeerSession: world.multipeerSession, browser: { world.browserPublisher(peer) }, decoder: world.decoder)
             .lift(
-                inputActionMap: identity,
-                outputActionMap: identity,
-                stateMap: ignore
+                inputActionMap: \AppAction.monitorEngine,
+                outputActionMap: AppAction.monitorEngine,
+                stateMap: \AppState.monitorEngine
             )
-
-        <> MonitorMiddleware
-            .init(
-                multipeerSession: session,
-                decoder: world.decoder
-            )
-            .lift(
-                inputActionMap: \AppAction.monitor,
-                outputActionMap: AppAction.monitor,
-                stateMap: \AppState.monitoredPeers
-            )
-
-        <> MultipeerBrowserMiddleware
-            .init(browser: { world.browserPublisher(peer) }, session: session)
-            .lift(
-                inputActionMap: \AppAction.multipeer?.browser,
-                outputActionMap: { x in AppAction.multipeer(.browser(x)) },
-                stateMap: \AppState.multipeer.browser
-            )
-
-        <> MultipeerMessagingMiddleware
-            .init(session: session)
-            .lift(
-                inputActionMap: \AppAction.multipeer?.messaging,
-                outputActionMap: { x in AppAction.multipeer(.messaging(x)) },
-                stateMap: ignore(of: AppState.self)
-            )
-
-//        <> MultipeerAdvertiserMiddleware
-//            .init(advertiser: { world.advertiserPublisher(peer) }, session: session)
-//            .lift(
-//                inputActionMap: \AppAction.multipeer?.advertiser,
-//                outputActionMap: { x in AppAction.multipeer(.advertiser(x)) },
-//                stateMap: \AppState.multipeer.advertiser
-//            )
-
-        <> MultipeerConnectivityMiddleware
-            .init(session: session)
-            .lift(
-                inputActionMap: \AppAction.multipeer?.connectivity,
-                outputActionMap: { x in AppAction.multipeer(.connectivity(x)) },
-                stateMap: ignore(of: AppState.self)
-            )
+            .eraseToAnyMiddleware()
+    ].reduce(into: ComposedMiddleware<AppAction, AppAction, AppState>(), { $0.append(middleware: $1) })
 }
 
-private let appReducer =
-    MultipeerMiddleware.multipeerBrowserReducer.lift(
-        actionGetter: \AppAction.multipeer?.browser,
-        stateGetter: \AppState.multipeer.browser,
-        stateSetter: setter(\AppState.multipeer.browser)
-    )
-    <> monitorReducer.lift(
-        actionGetter: \AppAction.monitor,
-        stateGetter: \AppState.monitoredPeers,
-        stateSetter: setter(\AppState.monitoredPeers)
-    )
+private let appReducer = SwiftRexMonitorEngine.reducer.lift(
+    actionGetter: \AppAction.monitorEngine,
+    stateGetter: \AppState.monitorEngine,
+    stateSetter: setter(\AppState.monitorEngine)
+)
 
 func createStore(world: World) -> AnyStoreType<AppAction, AppState> {
     Store(initialState: .empty, middleware: appMiddleware(world), reducer: appReducer).eraseToAnyStoreType()
 }
 
-public class Store: ReduxStoreBase<AppAction, AppState> {
-    public init<M: Middleware>(initialState: AppState, middleware: M, reducer: Reducer<AppAction, AppState>)
+class Store: ReduxStoreBase<AppAction, AppState> {
+    init<M: Middleware>(initialState: AppState, middleware: M, reducer: Reducer<AppAction, AppState>)
     where M.InputActionType == AppAction, M.OutputActionType == AppAction, M.StateType == AppState {
         super.init(
             subject: .combine(initialValue: initialState),

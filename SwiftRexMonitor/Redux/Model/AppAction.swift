@@ -1,10 +1,8 @@
 import Foundation
-import MultipeerMiddleware
+import SwiftRexMonitorEngine
 
 // sourcery: EnumCodable=EncodeOnly
 // sourcery: Prism
-public enum AppAction {
-    case start
-    case monitor(MonitorAction)
-    case multipeer(MultipeerAction)
+enum AppAction {
+    case monitorEngine(MonitorEngineAction)
 }

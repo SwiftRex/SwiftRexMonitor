@@ -28,6 +28,34 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "MonitoredAppMiddleware"
+               BuildableName = "MonitoredAppMiddleware"
+               BlueprintName = "MonitoredAppMiddleware"
+               ReferencedContainer = "container:MonitoredAppMiddleware">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "SwiftRexMonitorEngine"
+               BuildableName = "SwiftRexMonitorEngine"
+               BlueprintName = "SwiftRexMonitorEngine"
+               ReferencedContainer = "container:SwiftRexMonitorEngine">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "D69ED02E23EB8602002C1FDB"
                BuildableName = "SwiftRexMonitor.app"
                BlueprintName = "SwiftRexMonitor"

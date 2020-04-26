@@ -3,20 +3,21 @@ import MultipeerCombine
 import MultipeerConnectivity
 import MultipeerMiddleware
 import SwiftRex
+import SwiftRexMonitorEngine
 
-public struct World {
-    public let advertiserPublisher: (MCPeerID) -> MultipeerAdvertiserPublisher
-    public let browserPublisher: (MCPeerID) -> MultipeerBrowserPublisher
-    public let bundle: Bundle
-    public let decoder: () -> JSONDecoder
-    public let encoder: () -> JSONEncoder
-    public let multipeerSession: () -> MultipeerSession
-    public let myselfAsPeer: () -> MCPeerID
-    public let store: () -> AnyStoreType<AppAction, AppState>
+struct World {
+    let advertiserPublisher: (MCPeerID) -> MultipeerAdvertiserPublisher
+    let browserPublisher: (MCPeerID) -> MultipeerBrowserPublisher
+    let bundle: Bundle
+    let decoder: () -> JSONDecoder
+    let encoder: () -> JSONEncoder
+    let multipeerSession: () -> MultipeerSession
+    let myselfAsPeer: () -> MCPeerID
+    let store: () -> AnyStoreType<AppAction, AppState>
 }
 
 extension World {
-    public static let live: World = {
+    static let live: World = {
         let bundle = Bundle.main
         let serviceType = "swiftrex-mon"
         let name = bundle.infoDictionary?["CFBundleName"] as? String ?? ""

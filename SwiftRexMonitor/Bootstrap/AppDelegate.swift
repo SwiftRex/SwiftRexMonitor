@@ -11,7 +11,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Create the SwiftUI view that provides the window contents.
         let contentView = ContentView()
 
-        World.live.store().dispatch(.start)
+        World.live.store().dispatch(.monitorEngine(.start))
 
         // Create the window and set the content view. 
         window = NSWindow(

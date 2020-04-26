@@ -1,11 +1,12 @@
 import Foundation
-import MultipeerMiddleware
+import SwiftRexMonitorEngine
 
-public struct AppState: Encodable, Equatable {
-    public var multipeer: MultipeerState
-    public var monitoredPeers: [MonitoredPeer]
+struct AppState: Encodable, Equatable {
+    var monitorEngine: MonitorEngineState
+}
 
-    public static var empty: AppState {
-        return .init(multipeer: .empty, monitoredPeers: [])
+extension AppState {
+    static var empty: AppState {
+        .init(monitorEngine: .empty)
     }
 }
