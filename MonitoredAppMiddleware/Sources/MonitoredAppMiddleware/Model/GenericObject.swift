@@ -1,8 +1,12 @@
 import Foundation
 
-public struct KeyedGenericObject: Codable, Equatable {
+public struct KeyedGenericObject: Codable, Comparable, Equatable {
     public let key: String
     public let value: GenericObject
+
+    public static func < (lhs: KeyedGenericObject, rhs: KeyedGenericObject) -> Bool {
+        lhs.key < rhs.key
+    }
 }
 
 public indirect enum GenericObject: Equatable {
@@ -41,7 +45,7 @@ extension GenericObject: Codable {
                     throw DecodingError.dataCorruptedError(forKey: key, in: keyed, debugDescription: "Unknown type")
                 }
             }
-            self = .genericObject(array)
+            self = .genericObject(array.sorted())
         } else if var unkeyed = try? decoder.unkeyedContainer() {
             var array = [GenericObject]()
             while !unkeyed.isAtEnd {

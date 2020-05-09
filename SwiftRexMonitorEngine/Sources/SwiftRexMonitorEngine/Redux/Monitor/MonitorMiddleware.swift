@@ -65,13 +65,7 @@ final class MonitorMiddleware: Middleware {
                 .gotAction(
                     action: message.action,
                     remoteDate: message.remoteDate,
-                    state: message.state.map {
-                        do {
-                            return try decoder().decode(GenericObject.self, from: $0)
-                        } catch {
-                            return .string("Decoding error: \(error.localizedDescription)")
-                        }
-                    },
+                    state: message.state.map(decodeState)?.success ?? .null,
                     stateData: message.state,
                     actionSource: message.actionSource,
                     peer: peer
@@ -79,8 +73,14 @@ final class MonitorMiddleware: Middleware {
             )
         case let .introduction(introduction):
             let initialStateData = introduction.initialState
-            let initialState = (try? decoder().decode(GenericObject.self, from: initialStateData)) ?? .null
+            let initialState = decodeState(initialStateData).success ?? .null
             output?.dispatch(.gotGreetings(introduction, initialState: initialState, initialStateData: initialStateData, peer: peer))
+        }
+    }
+
+    private func decodeState(_ data: Data) -> Result<GenericObject, Error> {
+        Result {
+            try decoder().decode(GenericObject.self, from: data)
         }
     }
 }
