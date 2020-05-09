@@ -1,3 +1,4 @@
+import AppKit
 import Foundation
 import MultipeerCombine
 import MultipeerConnectivity
@@ -9,6 +10,7 @@ struct World {
     let advertiserPublisher: (MCPeerID) -> MultipeerAdvertiserPublisher
     let browserPublisher: (MCPeerID) -> MultipeerBrowserPublisher
     let bundle: Bundle
+    let copy: (String) -> Void
     let decoder: () -> JSONDecoder
     let encoder: () -> JSONEncoder
     let multipeerSession: () -> MultipeerSession
@@ -32,6 +34,10 @@ extension World {
             advertiserPublisher: advertiser,
             browserPublisher: browser,
             bundle: bundle,
+            copy: { string in
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString(string, forType: .string)
+            },
             decoder: {
                 let d = JSONDecoder()
                 d.dateDecodingStrategy = .iso8601

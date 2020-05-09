@@ -15,5 +15,6 @@ public struct ActionHistoryEntry: Codable, Equatable, Identifiable {
     public let remoteDate: Date
     public let action: String
     public let state: GenericObject?
+    public let stateData: Data?
     public let actionSource: ActionSource
 }

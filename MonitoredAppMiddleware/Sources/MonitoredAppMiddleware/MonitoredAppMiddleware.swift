@@ -74,7 +74,8 @@ public final class MonitoredAppMiddleware<Action, State: Encodable & Equatable>:
                         deviceModel: deviceModel(),
                         systemName: systemName(),
                         systemVersion: systemVersion()
-                    )
+                    ),
+                    initialState: (getState?()).flatMap(parseState) ?? Data()
                 )
             )
         )
@@ -86,11 +87,15 @@ public final class MonitoredAppMiddleware<Action, State: Encodable & Equatable>:
                 ActionMessage(
                     remoteDate: Date(),
                     action: "\(action)",
-                    state: changedState.flatMap { try? encoder().encode($0) },
+                    state: changedState.flatMap(parseState),
                     actionSource: dispatcher
                 )
             )
         )
+    }
+
+    private func parseState(state: State) -> Data? {
+        try? encoder().encode(state)
     }
 
     private func send(message: MessageType) {

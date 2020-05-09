@@ -59,14 +59,14 @@ extension MonitorAction {
         self.evaluateData != nil
     }
 
-    public var gotAction: (action: String, remoteDate: Date, state: GenericObject?, actionSource: ActionSource, peer: Peer)? {
+    public var gotAction: (action: String, remoteDate: Date, state: GenericObject?, stateData: Data?, actionSource: ActionSource, peer: Peer)? {
         get {
-            guard case let .gotAction(action, remoteDate, state, actionSource, peer) = self else { return nil }
-            return (action, remoteDate, state, actionSource, peer)
+            guard case let .gotAction(action, remoteDate, state, stateData, actionSource, peer) = self else { return nil }
+            return (action, remoteDate, state, stateData, actionSource, peer)
         }
         set {
             guard case .gotAction = self, let newValue = newValue else { return }
-            self = .gotAction(action: newValue.0, remoteDate: newValue.1, state: newValue.2, actionSource: newValue.3, peer: newValue.4)
+            self = .gotAction(action: newValue.0, remoteDate: newValue.1, state: newValue.2, stateData: newValue.3, actionSource: newValue.4, peer: newValue.5)
         }
     }
 
@@ -74,14 +74,14 @@ extension MonitorAction {
         self.gotAction != nil
     }
 
-    public var gotGreetings: (PeerMetadata, peer: Peer)? {
+    public var gotGreetings: (PeerMetadata, initialState: GenericObject, initialStateData: Data, peer: Peer)? {
         get {
-            guard case let .gotGreetings(associatedValue0, peer) = self else { return nil }
-            return (associatedValue0, peer)
+            guard case let .gotGreetings(associatedValue0, initialState, initialStateData, peer) = self else { return nil }
+            return (associatedValue0, initialState, initialStateData, peer)
         }
         set {
             guard case .gotGreetings = self, let newValue = newValue else { return }
-            self = .gotGreetings(newValue.0, peer: newValue.1)
+            self = .gotGreetings(newValue.0, initialState: newValue.1, initialStateData: newValue.2, peer: newValue.3)
         }
     }
 

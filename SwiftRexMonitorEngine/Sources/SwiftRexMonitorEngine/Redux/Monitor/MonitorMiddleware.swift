@@ -72,12 +72,15 @@ final class MonitorMiddleware: Middleware {
                             return .string("Decoding error: \(error.localizedDescription)")
                         }
                     },
+                    stateData: message.state,
                     actionSource: message.actionSource,
                     peer: peer
                 )
             )
         case let .introduction(introduction):
-            output?.dispatch(.gotGreetings(introduction, peer: peer))
+            let initialStateData = introduction.initialState
+            let initialState = (try? decoder().decode(GenericObject.self, from: initialStateData)) ?? .null
+            output?.dispatch(.gotGreetings(introduction, initialState: initialState, initialStateData: initialStateData, peer: peer))
         }
     }
 }

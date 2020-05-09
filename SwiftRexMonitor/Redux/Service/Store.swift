@@ -21,6 +21,14 @@ private let appMiddleware = { (world: World) -> ComposedMiddleware<AppAction, Ap
             )
             .eraseToAnyMiddleware(),
 
+        PasteboardService
+            .middleware(world.copy)
+            .lift(
+                inputActionMap: \AppAction.pasteboard,
+                outputActionMap: absurd,
+                stateMap: ignore
+            ).eraseToAnyMiddleware(),
+
         SwiftRexMonitorEngine
             .middleware(multipeerSession: world.multipeerSession, browser: { world.browserPublisher(peer) }, decoder: world.decoder)
             .lift(
@@ -36,7 +44,7 @@ private let appReducer = SwiftRexMonitorEngine.reducer.lift(
     actionGetter: \AppAction.monitorEngine,
     stateGetter: \AppState.monitorEngine,
     stateSetter: setter(\AppState.monitorEngine)
-)
+) <> Reducer.routerReducer.lift(action: \.router)
 
 func createStore(world: World) -> AnyStoreType<AppAction, AppState> {
     Store(initialState: .empty, middleware: appMiddleware(world), reducer: appReducer).eraseToAnyStoreType()

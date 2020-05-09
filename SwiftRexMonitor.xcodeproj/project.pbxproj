@@ -25,6 +25,13 @@
 		D64C382F241D6705008D470F /* TypeErase.generated.abstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C382D241D6704008D470F /* TypeErase.generated.abstract.swift */; };
 		D64C3831241D677D008D470F /* EnumCodable.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C3830241D677C008D470F /* EnumCodable.generated.swift */; };
 		D64C3833241D67C1008D470F /* Prism.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D64C3832241D67C1008D470F /* Prism.generated.swift */; };
+		D656984724663C21000056A5 /* ConnectedAppListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656984624663C21000056A5 /* ConnectedAppListView.swift */; };
+		D656984924663C2D000056A5 /* ConnectedAppListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656984824663C2D000056A5 /* ConnectedAppListPresenter.swift */; };
+		D656984B24663E05000056A5 /* ViewProducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656984A24663E05000056A5 /* ViewProducer.swift */; };
+		D656984E24664AC5000056A5 /* AppMonitorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656984D24664AC5000056A5 /* AppMonitorView.swift */; };
+		D656985024664ACD000056A5 /* AppMonitorPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656984F24664ACD000056A5 /* AppMonitorPresenter.swift */; };
+		D656985224665910000056A5 /* RouterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656985124665910000056A5 /* RouterService.swift */; };
+		D656985424666088000056A5 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D656985324666088000056A5 /* PasteboardService.swift */; };
 		D658A7C1241DEE280093EEA1 /* MonitoredAppMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D658A7C0241DEE280093EEA1 /* MonitoredAppMiddleware */; };
 		D66BF723242181A3001AB807 /* MultipeerCombine in Frameworks */ = {isa = PBXBuildFile; productRef = D66BF722242181A3001AB807 /* MultipeerCombine */; };
 		D66BF725242181A3001AB807 /* MultipeerMiddleware in Frameworks */ = {isa = PBXBuildFile; productRef = D66BF724242181A3001AB807 /* MultipeerMiddleware */; };
@@ -51,6 +58,13 @@
 		D64C382D241D6704008D470F /* TypeErase.generated.abstract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeErase.generated.abstract.swift; sourceTree = "<group>"; };
 		D64C3830241D677C008D470F /* EnumCodable.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnumCodable.generated.swift; sourceTree = "<group>"; };
 		D64C3832241D67C1008D470F /* Prism.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Prism.generated.swift; sourceTree = "<group>"; };
+		D656984624663C21000056A5 /* ConnectedAppListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedAppListView.swift; sourceTree = "<group>"; };
+		D656984824663C2D000056A5 /* ConnectedAppListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectedAppListPresenter.swift; sourceTree = "<group>"; };
+		D656984A24663E05000056A5 /* ViewProducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewProducer.swift; sourceTree = "<group>"; };
+		D656984D24664AC5000056A5 /* AppMonitorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMonitorView.swift; sourceTree = "<group>"; };
+		D656984F24664ACD000056A5 /* AppMonitorPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMonitorPresenter.swift; sourceTree = "<group>"; };
+		D656985124665910000056A5 /* RouterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterService.swift; sourceTree = "<group>"; };
+		D656985324666088000056A5 /* PasteboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardService.swift; sourceTree = "<group>"; };
 		D658A7BF241DEBC00093EEA1 /* MonitoredAppMiddleware */ = {isa = PBXFileReference; lastKnownFileType = folder; path = MonitoredAppMiddleware; sourceTree = "<group>"; };
 		D698B165245616DD000A1566 /* SwiftRexMonitorEngine */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SwiftRexMonitorEngine; sourceTree = "<group>"; };
 		D69ED02F23EB8602002C1FDB /* SwiftRexMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftRexMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -107,6 +121,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D656984524663C10000056A5 /* ConnectedAppList */ = {
+			isa = PBXGroup;
+			children = (
+				D656984824663C2D000056A5 /* ConnectedAppListPresenter.swift */,
+				D656984624663C21000056A5 /* ConnectedAppListView.swift */,
+			);
+			path = ConnectedAppList;
+			sourceTree = "<group>";
+		};
+		D656984C24664AAF000056A5 /* AppMonitor */ = {
+			isa = PBXGroup;
+			children = (
+				D656984F24664ACD000056A5 /* AppMonitorPresenter.swift */,
+				D656984D24664AC5000056A5 /* AppMonitorView.swift */,
+			);
+			path = AppMonitor;
+			sourceTree = "<group>";
+		};
 		D69ED02623EB8602002C1FDB = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +186,7 @@
 				D69ED03E23EB8603002C1FDB /* Info.plist */,
 				D69ED03B23EB8603002C1FDB /* Main.storyboard */,
 				D69ED03F23EB8603002C1FDB /* SwiftRexMonitor.entitlements */,
+				D656984A24663E05000056A5 /* ViewProducer.swift */,
 			);
 			path = Bootstrap;
 			sourceTree = "<group>";
@@ -161,6 +194,8 @@
 		D69ED06523EB905A002C1FDB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D656984C24664AAF000056A5 /* AppMonitor */,
+				D656984524663C10000056A5 /* ConnectedAppList */,
 				D6C404F2245653860053BE93 /* Common */,
 				D6C404E9245653390053BE93 /* Home */,
 			);
@@ -170,6 +205,8 @@
 		D6C404DC2456193D0053BE93 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				D656985324666088000056A5 /* PasteboardService.swift */,
+				D656985124665910000056A5 /* RouterService.swift */,
 				D6C404DD2456193D0053BE93 /* Store.swift */,
 				D6C404DE2456193D0053BE93 /* World.swift */,
 			);
@@ -340,11 +377,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D656984724663C21000056A5 /* ConnectedAppListView.swift in Sources */,
+				D656985424666088000056A5 /* PasteboardService.swift in Sources */,
 				D69ED03323EB8602002C1FDB /* AppDelegate.swift in Sources */,
+				D656984B24663E05000056A5 /* ViewProducer.swift in Sources */,
+				D656985024664ACD000056A5 /* AppMonitorPresenter.swift in Sources */,
+				D656984E24664AC5000056A5 /* AppMonitorView.swift in Sources */,
+				D656985224665910000056A5 /* RouterService.swift in Sources */,
 				D64C3831241D677D008D470F /* EnumCodable.generated.swift in Sources */,
 				D6C404E624561F470053BE93 /* AppState.swift in Sources */,
 				D6C404EF245653770053BE93 /* HomeView.swift in Sources */,
 				D6C404E824561F920053BE93 /* AppAction.swift in Sources */,
+				D656984924663C2D000056A5 /* ConnectedAppListPresenter.swift in Sources */,
 				D6C404DF2456193D0053BE93 /* Store.swift in Sources */,
 				D6C404F6245653C80053BE93 /* Presenter.swift in Sources */,
 				D64C382F241D6705008D470F /* TypeErase.generated.abstract.swift in Sources */,
@@ -505,7 +549,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwiftRexMonitor/Bootstrap/SwiftRexMonitor.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftRexMonitor/Bootstrap/Preview Content\"";
@@ -529,7 +573,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SwiftRexMonitor/Bootstrap/SwiftRexMonitor.entitlements;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"SwiftRexMonitor/Bootstrap/Preview Content\"";

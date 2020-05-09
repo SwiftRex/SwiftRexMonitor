@@ -10,6 +10,6 @@ public enum MonitorAction {
     case peerListNeedsRefresh
     case peerListHasChanged([Peer])
     case evaluateData(Data, from: Peer)
-    case gotAction(action: String, remoteDate: Date, state: GenericObject?, actionSource: ActionSource, peer: Peer)
-    case gotGreetings(PeerMetadata, peer: Peer)
+    case gotAction(action: String, remoteDate: Date, state: GenericObject?, stateData: Data?, actionSource: ActionSource, peer: Peer)
+    case gotGreetings(PeerMetadata, initialState: GenericObject, initialStateData: Data, peer: Peer)
 }

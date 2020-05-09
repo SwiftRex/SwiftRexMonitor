@@ -22,11 +22,14 @@ extension MonitorAction: Codable {
             case action
             case remoteDate
             case state
+            case stateData
             case actionSource
             case peer
         }
         enum GotGreetingsKeys: String, CodingKey {
             case associatedValue0
+            case initialState
+            case initialStateData
             case peer
         }
     }
@@ -52,14 +55,17 @@ extension MonitorAction: Codable {
             let associatedValues0 = try subContainer.decode(String.self, forKey: .action)
             let associatedValues1 = try subContainer.decode(Date.self, forKey: .remoteDate)
             let associatedValues2 = try subContainer.decode(GenericObject?.self, forKey: .state)
-            let associatedValues3 = try subContainer.decode(ActionSource.self, forKey: .actionSource)
-            let associatedValues4 = try subContainer.decode(Peer.self, forKey: .peer)
-            self = .gotAction(action: associatedValues0, remoteDate: associatedValues1, state: associatedValues2, actionSource: associatedValues3, peer: associatedValues4)
+            let associatedValues3 = try subContainer.decode(Data?.self, forKey: .stateData)
+            let associatedValues4 = try subContainer.decode(ActionSource.self, forKey: .actionSource)
+            let associatedValues5 = try subContainer.decode(Peer.self, forKey: .peer)
+            self = .gotAction(action: associatedValues0, remoteDate: associatedValues1, state: associatedValues2, stateData: associatedValues3, actionSource: associatedValues4, peer: associatedValues5)
         case "gotGreetings":
             let subContainer = try container.nestedContainer(keyedBy: CodingKeys.GotGreetingsKeys.self, forKey: .associatedValues)
             let associatedValues0 = try subContainer.decode(PeerMetadata.self, forKey: .associatedValue0)
-            let associatedValues1 = try subContainer.decode(Peer.self, forKey: .peer)
-            self = .gotGreetings(associatedValues0, peer: associatedValues1)
+            let associatedValues1 = try subContainer.decode(GenericObject.self, forKey: .initialState)
+            let associatedValues2 = try subContainer.decode(Data.self, forKey: .initialStateData)
+            let associatedValues3 = try subContainer.decode(Peer.self, forKey: .peer)
+            self = .gotGreetings(associatedValues0, initialState: associatedValues1, initialStateData: associatedValues2, peer: associatedValues3)
         default:
             throw DecodingError.keyNotFound(CodingKeys.type, .init(codingPath: container.codingPath, debugDescription: "Unknown key"))
         }
@@ -81,18 +87,21 @@ extension MonitorAction: Codable {
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.EvaluateDataKeys.self, forKey: .associatedValues)
             try subContainer.encode(associatedValue0, forKey: .associatedValue0)
             try subContainer.encode(from, forKey: .from)
-        case let .gotAction(action, remoteDate, state, actionSource, peer):
+        case let .gotAction(action, remoteDate, state, stateData, actionSource, peer):
             try container.encode("gotAction", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.GotActionKeys.self, forKey: .associatedValues)
             try subContainer.encode(action, forKey: .action)
             try subContainer.encode(remoteDate, forKey: .remoteDate)
             try subContainer.encode(state, forKey: .state)
+            try subContainer.encode(stateData, forKey: .stateData)
             try subContainer.encode(actionSource, forKey: .actionSource)
             try subContainer.encode(peer, forKey: .peer)
-        case let .gotGreetings(associatedValue0, peer):
+        case let .gotGreetings(associatedValue0, initialState, initialStateData, peer):
             try container.encode("gotGreetings", forKey: .type)
             var subContainer = container.nestedContainer(keyedBy: CodingKeys.GotGreetingsKeys.self, forKey: .associatedValues)
             try subContainer.encode(associatedValue0, forKey: .associatedValue0)
+            try subContainer.encode(initialState, forKey: .initialState)
+            try subContainer.encode(initialStateData, forKey: .initialStateData)
             try subContainer.encode(peer, forKey: .peer)
         }
     }
