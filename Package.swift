@@ -9,7 +9,7 @@ let package = Package(
         .iOS(.v13), .macOS(.v10_15), .tvOS(.v13), .watchOS(.v6)
     ],
     products: [
-        .library(name: "MonitoredAppMiddleware", targets: ["MonitoredAppMiddleware"])
+        .library(name: "MonitoredAppMiddleware", type: .dynamic, targets: ["MonitoredAppMiddleware"])
     ],
     dependencies: [
         .package(name: "MultipeerMiddleware", url: "https://github.com/SwiftRex/MultipeerMiddleware.git", .branch("master"))
