@@ -4,6 +4,11 @@ public struct KeyedGenericObject: Codable, Comparable, Equatable {
     public let key: String
     public let value: GenericObject
 
+    public init(key: String, value: GenericObject) {
+        self.key = key
+        self.value = value
+    }
+
     public static func < (lhs: KeyedGenericObject, rhs: KeyedGenericObject) -> Bool {
         lhs.key < rhs.key
     }
