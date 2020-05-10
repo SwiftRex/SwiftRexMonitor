@@ -14,11 +14,11 @@ struct AppMonitorView: View {
 
     private func validBody() -> some View {
         ScrollView([.horizontal, .vertical], showsIndicators: true) {
-            GenericObjectView(
-                genericObject: .genericObject([
-                    .init(key: viewModel.state.name, value: viewModel.state.state)
-                ])
-            )
+            HStack(alignment: .top, spacing: 8) {
+                Text(verbatim: viewModel.state.name + ":").fixedSize()
+
+                GenericObjectView(genericObject: viewModel.state.state)
+            }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
@@ -39,9 +39,12 @@ private struct GenericObjectView: View {
                     GenericObjectView(genericObject: items[index])
                 }
             }
-            .padding()
+            .padding(.horizontal)
             .overlay(
-                RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1)
+                HStack(alignment: .top, spacing: 0) {
+                    Rectangle().stroke(Color.init(red: 0.8, green: 0.8, blue: 0.8)).frame(width: 1)
+                    Spacer()
+                }
             )
             .eraseToAnyView()
         case let .genericObject(objects):
@@ -54,9 +57,12 @@ private struct GenericObjectView: View {
                     }
                 }
             }
-            .padding()
+            .padding(.horizontal)
             .overlay(
-                RoundedRectangle(cornerRadius: 8).stroke(Color.black, lineWidth: 1)
+                HStack(alignment: .top, spacing: 0) {
+                    Rectangle().stroke(Color.init(red: 0.8, green: 0.8, blue: 0.8)).frame(width: 1)
+                    Spacer()
+                }
             )
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .eraseToAnyView()
